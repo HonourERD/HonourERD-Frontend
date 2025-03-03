@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HonourERD Quiz</title>
+    <link rel="stylesheet" href="./NewSystem.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+      
+
+        #logo {
+            width: 250px;
+            height: 250px;
+        }
+
+        #login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .text-instructions{
+            font-size: 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logo-container">
+        <img  id="logo"  src="./Images/HonourERD.png">
+
+    </div>
+
+    <div id="login-container">
+        <h2>Enter Your Unique ID</h2>
+        <input type="text" id="userID" placeholder="Enter your ID">
+        <button onclick="login()">Begin</button>
+    </div>
+
+    <div class="instructions">
+        <p class="text-instructions">💡You can find your unique identifier on the consent form you were given, or the card given to you by the lead researcher</p>
+    </div>
+
+    <script>
+
+        function login() {
+            const userIdentifier = document.getElementById("userID").value.trim();
+
+            if (userIdentifier === "") {
+                alert("Please enter a valid ID!");
+                return;
+            }
+
+            // send identifier to flask
+            fetch("https://honourerd-backend.onrender.com/login", {  
+
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_identifier: userIdentifier })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Login response:", data);
+                    if (data.success) {
+                        console.log("✅ Login successful! Redirecting...");
+                        localStorage.setItem("userID", userIdentifier); // store it for quiz
+                        window.location.href = "welcome.html"; // redirect to honourERD
+                    } else {
+                        alert("❌ Login failed. Please try again.");
+                    }
+                })
+                .catch(error => console.error("❌ Error logging in:", error));
+        }
+    </script>
+
+
+
+</body>
+
+</html>

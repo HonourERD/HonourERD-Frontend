@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HonourERD - Step-by-Step Normalisation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="./NewSystem.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            display: inline-block;
+            border: 1px solid #676565;
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .selected {
+            border-color: blue;
+        }
+       
+            
+        .feedback {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none; 
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+      
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            display: inline-block; 
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+     
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: inline-block; 
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        .survey-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #0084ff;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .survey-link:hover {
+            background-color: #005bb5;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+    <h1>HonourERD</h1>
+    <p>Test your Knowledge on the process of normalisation</p>
+
+    <h1>Database Quiz</h1>
+
+    <div id="quiz-container">
+        <div id="question" class="question"></div>
+
+
+        <div id="diagram-container"></div>
+
+        <div id="tables-container"></div>
+        <button id="submit-button">Submit</button>
+        <div id="feedback" class="feedback"></div>
+        <button id="next-button" disabled>Next Question</button>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: false });
+
+    
+            
+        const questionDiv = document.getElementById("question");
+        const tablesContainer = document.getElementById("tables-container");
+        const submitButton = document.getElementById("submit-button");
+        const feedbackDiv = document.getElementById("feedback");
+        const nextButton = document.getElementById("next-button");
+    
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedTableIndex = -1;  
+    
+        const questions = [
+            {
+                "question": "Which one of these tables is in 1NF?",
+                "tables": [
+                    { "mermaid": "erDiagram\nCustomer {\n int customer_id PK\n string name\n int address_id FK\n}", "correct": false },
+                    { "mermaid": "erDiagram\nAddress {\n int address_id PK\n string street\n string city\n}", "correct": true },
+                    { "mermaid": "erDiagram\nOrders {\n int order_id PK\n int customer_id FK\n date order_date\n}", "correct": false },
+                    { "mermaid": "erDiagram\nProducts {\n int product_id PK\n string product_name\n float price\n}", "correct": false }
+                ],
+                "explanation": "The Address table contains details like street and city."
+            },
+            {
+                "question": "Which one of these tables is in 2NF?",
+                "tables": [
+                    { "mermaid": "erDiagram\nCustomer {\n int customer_id PK\n string name\n int address_id FK\n}", "correct": true },
+                    { "mermaid": "erDiagram\nAddress {\n int address_id PK\n string street\n string city\n}", "correct": false },
+                    { "mermaid": "erDiagram\nOrders {\n int order_id PK\n int customer_id FK\n date order_date\n}", "correct": false },
+                    { "mermaid": "erDiagram\nProducts {\n int product_id PK\n string product_name\n float price\n}", "correct": false }
+                ],
+                "explanation": "The Customer table is in 2NF as it has atomic attributes."
+            },
+            {
+                "question": "Which one of these tables is in 2NF?",
+                "tables": [
+                    { "mermaid": "erDiagram\nOrders {\n int order_id PK\n int customer_id FK\n date order_date\n}", "correct": true },
+                    { "mermaid": "erDiagram\nOrderDetails {\n int order_id PK\n int product_id PK\n int quantity\n string product_name\n}", "correct": false },
+                    { "mermaid": "erDiagram\nCustomers {\n int customer_id PK\n string name\n string email\n}", "correct": false },
+                    { "mermaid": "erDiagram\nProducts {\n int product_id PK\n string product_name\n float price\n}", "correct": false }
+                ],
+                "explanation": "The Orders table is in 2NF because all non-key attributes depend on the full primary key."
+            },
+            {
+                "question": "Which table is NOT in 3NF?",
+                "tables": [
+                    { "mermaid": "erDiagram\nCustomers {\n int customer_id PK\n string name\n int address_id FK\n string city\n}", "correct": true },
+                    { "mermaid": "erDiagram\nOrders {\n int order_id PK\n int customer_id FK\n date order_date\n}", "correct": false },
+                    { "mermaid": "erDiagram\nProducts {\n int product_id PK\n string product_name\n float price\n}", "correct": false },
+                    { "mermaid": "erDiagram\nAddresses {\n int address_id PK\n string street\n string city\n}", "correct": false }
+                ],
+                "explanation": "Customers is not in 3NF because 'city' depends on 'address_id', not directly on 'customer_id'."
+            },
+            {
+                "question": "Which one of these tables is in 3NF?",
+                "tables": [
+                    { "mermaid": "erDiagram\nOrders {\n int order_id PK\n int customer_id FK\n date order_date\n}", "correct": true },
+                    { "mermaid": "erDiagram\nCustomers {\n int customer_id PK\n string name\n int address_id FK\n string city\n}", "correct": false },
+                    { "mermaid": "erDiagram\nProducts {\n int product_id PK\n string product_name\n float price\n}", "correct": false },
+                    { "mermaid": "erDiagram\nAddresses {\n int address_id PK\n string street\n string city\n}", "correct": false }
+                ],
+                "explanation": "The Orders table is in 3NF because it has no transitive dependencies."
+            },
+            {
+                "question": "What is the requirement for a table to be in 2NF?",
+                "tables": [
+                    { "text": "It must be in 1NF and have no partial dependencies.", "correct": true },
+                    { "text": "It must be in 1NF and have no transitive dependencies.", "correct": false },
+                    { "text": "It must be in BCNF.", "correct": false },
+                    { "text": "It must not have any foreign keys.", "correct": false }
+                ],
+                "explanation": "A table is in 2NF if it is in 1NF and has no partial dependencies."
+            },
+            {
+                "question": "Here is a table. Which change would normalize it to 3NF?",
+                "diagram": "erDiagram\nEmployees {\n    int employee_id PK\n    string name\n    string department\n    string manager_name\n}",
+                "tables": [
+                    { "text": "Move the 'manager_name' column into a separate table.", "correct": true },
+                    { "text": "Add a new column for multiple email addresses.", "correct": false },
+                    { "text": "Merge all foreign keys into one composite key.", "correct": false },
+                    { "text": "Remove the primary key.", "correct": false }
+                ],
+                "explanation": "To achieve 3NF, we must remove transitive dependencies. 'manager_name' depends on 'manager_id', not the primary key."
+            },
+    
+    
+            {
+                "question": "True or False – A table in 3NF always has no foreign keys?",
+                "tables": [
+                    { "text": "False", "correct": true },
+                    { "text": "True", "correct": false }
+                ],
+                "explanation": "Foreign keys do not prevent a table from being in 3NF. The key requirement is eliminating transitive dependencies."
+            },
+
+            {
+                "question": "Which of the following is an example of a transitive dependency?",
+                "tables": [
+                    {"text": "A customer's ID determines their order history", "correct": false},
+                    {"text": "A student's university ID determines their department, and the department determines the head of the department.", "correct": true},
+                    {"text": "A product's ID determines its price.", "correct": false},
+                    {"text": "An order ID determines the order date.", "correct": false},
+                ],
+                 "explanation": "A student's university ID determines their department, and the department determines the head of the department."
+            },
+    
+        ];
+    
+        function displayQuestion() {
+            const questionData = questions[currentQuestionIndex];
+    
+            const totalQuestions = questions.length; 
+            const currentQuestionNumber = currentQuestionIndex + 1;  
+    
+         
+            questionDiv.innerHTML = `<h2>Question ${currentQuestionNumber} of ${totalQuestions}: ${questionData.question}</h2>`;
+    
+    
+            tablesContainer.innerHTML = "";
+            selectedTableIndex = -1;
+    
+            
+            const diagramContainer = document.getElementById("diagram-container");
+            diagramContainer.innerHTML = "";
+            diagramContainer.style.display = "none"; 
+    
+            if (questionData.diagram && questionData.diagram.trim() !== "") {
+                console.log("Rendering Mermaid Diagram:", questionData.diagram);
+            
+                const mermaidDiv = document.createElement("div");
+                mermaidDiv.className = "mermaid"; 
+                mermaidDiv.textContent = questionData.diagram;
+                
+                diagramContainer.appendChild(mermaidDiv);
+                diagramContainer.style.display = "block"; 
+            
+             
+                setTimeout(() => {
+                    mermaid.init(undefined, [mermaidDiv]);
+                }, 100);
+            }
+            
+    
+    
+      
+            questionData.tables.forEach((table, index) => {
+                const tableDiv = document.createElement("div");
+                tableDiv.classList.add("table-container");
+                tableDiv.id = `table-${index}`;
+    
+                if (table.mermaid) {
+                    
+                    const mermaidDiv = document.createElement("div");
+                    mermaidDiv.className = "mermaid";
+                    mermaidDiv.textContent = table.mermaid;
+                    tableDiv.appendChild(mermaidDiv);
+                } else if (table.text) {
+                  
+                    const textDiv = document.createElement("div");
+                    textDiv.textContent = table.text;
+                    textDiv.style.padding = "10px";
+                    textDiv.style.fontSize = "16px";
+                    tableDiv.appendChild(textDiv);
+                }
+    
+                tablesContainer.appendChild(tableDiv);
+    
+                tableDiv.addEventListener("click", () => {
+                    document.querySelectorAll('.table-container').forEach(el => el.classList.remove('selected'));
+                    tableDiv.classList.add("selected");
+                    selectedTableIndex = index;
+                });
+            });
+    
+         
+            setTimeout(() => {
+                mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+            }, 100);
+    
+            feedbackDiv.textContent = "";
+            submitButton.disabled = false;
+            nextButton.disabled = true;
+        }
+    
+    
+        console.log("Checkpoint 1: JavaScript started");
+
+        try {
+            displayQuestion();
+            console.log("Checkpoint 2: displayQuestion() finished running");
+        } catch (error) {
+            console.error("ERROR INSIDE displayQuestion():", error);
+        }
+    
+    
+       
+        submitButton.addEventListener("click", () => {
+            if (selectedTableIndex === -1) {
+                alert("Please select an answer.");
+                return;
+            }
+    
+            const questionData = questions[currentQuestionIndex];
+            const isCorrect = questionData.tables[selectedTableIndex].correct;
+    
+            if (isCorrect) {
+                score++;
+                feedbackDiv.textContent = "✅ Correct!";
+                feedbackDiv.classList.remove("incorrect"); 
+                feedbackDiv.classList.add("correct");
+            } else {
+                feedbackDiv.textContent = "❌ Incorrect. " + questionData.explanation;
+                feedbackDiv.classList.remove("correct"); 
+                feedbackDiv.classList.add("incorrect");
+            }
+            
+          
+            feedbackDiv.style.opacity = "1";
+            feedbackDiv.style.transform = "translateY(0px)";
+            feedbackDiv.style.display = "inline-block";
+    
+            submitButton.disabled = true;
+            nextButton.disabled = false;
+        });
+
+        function submitScoreToFlask(score, totalQuestions) {
+            const userIdentifier = localStorage.getItem("userID"); 
+        
+            if (!userIdentifier) {
+                console.error(" User identifier not found!");
+                alert(" Error: No user ID found. Please log in again.");
+                return;
+            }
+        
+            fetch("https://honourerd-backend.onrender.com/submit-score", {  
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_identifier: userIdentifier,
+                    score: score,
+                    total_questions: totalQuestions
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log("Score submitted successfully:", data))
+            .catch(error => console.error(" Error submitting score:", error));
+        }
+        
+        
+        
+    
+        nextButton.addEventListener("click", () => {
+            console.log("Next button clicked!");
+            console.log("Current index BEFORE update:", currentQuestionIndex);
+        
+            currentQuestionIndex++;
+        
+            console.log("Current index AFTER update:", currentQuestionIndex);
+        
+            if (currentQuestionIndex < questions.length) {
+                console.log("✅ Loading next question...");
+                displayQuestion(); 
+                feedbackDiv.textContent = "";
+                feedbackDiv.style.display = "none"; 
+                feedbackDiv.style.opacity = "0";
+                feedbackDiv.classList.remove("correct", "incorrect");
+            } else {
+                console.log("🎉 Quiz completed!");
+                submitScoreToFlask(score, questions.length); 
+        
+                feedbackDiv.innerHTML = `
+                     <strong>Quiz Completed!</strong> <br>  
+                    Your score: <strong>${score} out of ${questions.length}</strong> <br><br>
+                    <strong>Your results have been submitted.</strong>  
+                    <br><br>
+                    <a href="https://www.surveymonkey.com/r/BDV9XLL" class="survey-link">📋 Click here to take the survey!</a>
+                `;
+                feedbackDiv.style.display = "block";
+                feedbackDiv.style.opacity = "1";
+                feedbackDiv.classList.add("correct");
+                nextButton.disabled = true;
+                submitButton.disabled = true;
+            }
+        });
+        
+           
+       
+        
+    
+    </script>
+  
+
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+/* scenario styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+.logo-container {
+    display: flex;
+   justify-content: center;
+  
+}
+
+
+#logo{
+    width: 150px;
+    height: 150px;
+}
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+#step-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hidden {
+    display: none;
+}
+.step-container {
+    background: #F9f9f9;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+.step-container:nth-child(even) { background: #f9f9f9; }
+.issue-identified{
+    color: red;
+}
+.issue-fixed{
+    color: green;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.hint-btn {
+    background: #28a745;
+}
+
+.hint-btn:hover {
+    background: #218838;
+}
+
+.subprocess-box1 {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    background: #EFEAC9;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.subprocess-box2 {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    background: #DCEFC9;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.subprocess-box3 {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    background: #C9D9EF;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.subprocess-box4 {
+    margin-top: 15px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    background: #A1D6B2;
+    border-radius: 5px;
+    text-align: left;
+}
+.mermaid {
+    margin: 15px auto;
+    display: block;
+    text-align: center;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ol {
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 12px;
+    font-size: 16px;
+    text-align: left;
+}
+
+textarea {
+    width: 80%;
+    height: 100px;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#summary {
+    background: white;
+    border: 1px solid black;
+}
+
+#btn-summary {
+    background: #ff5722;
+}
+
+#btn-summary:hover {
+    background: #e64a19;
+}
+.error-message {
+    color: #dc3545;
+    font-weight: bold;
+    padding: 10px;
+    border-left: 4px solid #dc3545;
+    background: #f8d7da;
+}
+
+
+/* QUIZ STYLING */
+
+
+
+#diagram-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*  text layout  */
+#quiz-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.question {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+.table-container {
+    display: inline-block;
+    width: 45%;
+    min-height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.table-container:hover {
+    background-color: #f1f1f1;
+    border-color: #007bff;
+}
+
+
+.table-container.selected {
+    background-color: #79baff;
+    color: white;
+    border-color: #0056b3;
+}
+
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#submit-button {
+    background-color: #007bff;
+    color: white;
+}
+
+#submit-button:hover {
+    background-color: #0056b3;
+}
+
+#next-button {
+    background-color: #28a745;
+    color: white;
+}
+
+#next-button:hover {
+    background-color: #1e7e34;
+}
+
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

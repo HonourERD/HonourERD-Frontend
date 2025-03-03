@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>HonourERD - Step-by-Step Normalisation</title>
+   
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="./NewSystem.css">
+    <style>
+        .scenario-container {
+            background: #faf6d8;
+            border: 2px solid #000000; 
+            padding: 10px 15px; 
+            border-radius: 8px; 
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08); 
+            margin: 10px auto 20px auto; 
+            width: 80%; 
+            max-width: 900px; 
+            font-family: 'Arial', sans-serif;
+            text-align: left;
+            line-height: 1.5; 
+        }
+        
+  
+        .scenario-container h2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000; 
+            margin-bottom: 8px;
+        }
+        
+  
+        .scenario-intro {
+            font-size: 14.5px;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+        
+  
+        .points {
+            list-style: none;
+            padding-left: 0;
+            font-size: 14px;
+        }
+        
+        .solution-text{
+            font-size: 14px;
+        }
+        .issue-list li {
+            padding: 0; 
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+        }
+        
+    
+        .issue-list li strong {
+            color: #c0392b; 
+        }
+        
+ 
+        .task-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 10px;
+        }
+        
+        
+        
+        .subprocess-box,
+        .step-container {
+            background-color: white;
+            border: 2px solid #0c0900;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            min-height: 250px;
+        }
+
+        .highlight-issue {
+            color: red;
+            font-weight: bold;
+        }
+
+        .highlight-fixed {
+            color: green;
+            font-weight: bold;
+        }
+
+    
+        .issue {
+            fill: red;
+            stroke: black;
+        }
+
+        .fixed {
+            fill: green;
+            stroke: black;
+        }
+
+        .highlight-issue {
+            color: red;
+            font-weight: bold;
+        }
+
+        .highlight-fixed {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">HonourERD</h1>
+    
+    <div class="scenario-container">
+        <h2>Scenario: <span class="highlight">Store Data Overload</span></h2>
+        <p class="scenario-intro">
+            ShopEase, a growing retail store, is struggling with unorganized data.  
+            Everything, customers, purchases, suppliers, and products is stored in a single messy table, causing:
+        </p>
+    
+        <ul class="issue-list">
+            <li class="points"> <strong>Duplicate data:</strong> Customers appear multiple times.</li>
+            <li class="points"> <strong>Inconsistencies:</strong> ("Laptop" vs. "Lptop").</li>
+            <li class="points"><strong>Slow updates:</strong> Supplier details change in multiple places.</li>
+            <li class="points"><strong>Poor performance:</strong> Reports take forever to generate.</li>
+        </ul>
+    
+        <p class="solution-text">
+            Normalise the database step-by-step to fix these issues! (<strong>1NF → 2NF → 3NF</strong>).
+        </p>
+    
+        <p class="task-text">
+            Start by entering raw store data below! enter the each tables PK, followed by comma seperated attributes
+        </p>
+    </div>
+    
+    
+    
+    <div id="step-1" class="step-container">
+        <h3>Step 1: First Normal Form (1NF)</h3>
+    
+        <textarea id="input-1nf"
+            placeholder="Enter attributes for store tables (e.g., CustomerID, FirstName, LastName, Email, ProductID, ProductName, Price)"></textarea>
+
+        <button id="btn-validate-1nf">Process UNF</button>
+        <div id="feedback-1nf"></div>
+    </div>
+
+    <hr>
+
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 1NF</h3>
+
+        <div class="subprocess-box1">
+            <h4>Step 1. Ensure Atomicity</h4>
+            
+            <div id="atomicity-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p>✅ Atomicity fixes will appear here.</p>
+            </div>
+
+            <button id="btn-fix-atomicity">Apply Fix for Atomicity</button>
+            <div id="after-atomicity" class="mermaid"></div>
+        </div>
+
+        <div class="subprocess-box1" id="repeating-groups-explanation">
+            <h4>Step 2. Eliminate Repeating Groups</h4>
+          
+            <div id="repeating-groups-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p>✅ Feedback on repeating groups will appear here.</p>
+            </div>
+
+            <button id="btn-fix-repeating-groups">Apply Fix for Repeating Groups</button>
+            <div id="after-repeating-groups" class="mermaid"></div>
+
+
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div id="step-2" class="step-container">
+        <h3>Step 2: Second Normal Form (2NF)</h3>
+        <p id="explanation-2nf">Identifying and removing partial dependencies.</p>
+
+        <div class="subprocess-box2">
+            <h4>Before 2NF</h4>
+          
+            <div id="before-2nf-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p id="before-2nf-text">✅ 2NF validation feedback will appear here.</p>
+            </div>
+
+            <button id="btn-validate-2nf">Validate 2NF</button>
+            <div id="before-2nf" class="mermaid"></div>
+
+        </div>
+
+        <div class="subprocess-box2">
+            <h4>After 2NF</h4>
+          
+            <div id="after-2nf-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p id="after-2nf-text">✅ Fixes applied during 2NF will be displayed here.</p>
+            </div>
+
+            <button id="btn-fix-2nf">Apply Fix for 2NF</button>
+            <div id="after-2nf" class="mermaid"></div>
+
+        </div>
+    </div>
+    <hr>
+
+    <div id="step-3" class="step-container">
+        <h3>Step 3: Third Normal Form (3NF)</h3>
+        <p id="explanation-3nf">Identifying and removing transitive dependencies.</p>
+
+        <div class="subprocess-box3">
+            <h4>Before 3NF</h4>
+         
+            <div id="before-3nf-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p id="before-3nf-text">✅ 3NF validation feedback will appear here.</p>
+            </div>
+
+            <button id="btn-validate-3nf">Validate 3NF</button>
+            <div id="before-3nf" class="mermaid"></div>
+
+        </div>
+
+        <div class="subprocess-box3">
+            <h4>After 3NF</h4>
+           
+            <div id="after-3nf-feedback"
+                style="background-color: #f0f0f0; padding: 10px; border-left: 4px solid #28a745;">
+                <p id="after-3nf-text">✅ Fixes applied during 3NF will be displayed here.</p>
+            </div>
+
+            <button id="btn-fix-3nf">Apply Fix for 3NF</button>
+            <div id="after-3nf" class="mermaid"></div>
+
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="final-summary-container" class="step-container">
+        <h3>Final Normalised Database</h3>
+        <p id="final-summary-text">Here’s what the database looks like after full normalisation.</p>
+        <button id="btn-generate-summary">Generate Final Summary</button>
+
+        <div id="final-summary-diagram" class="mermaid"></div>
+    </div>
+
+    <button onclick="goToNext()">Next</button>
+
+
+    <script>
+        mermaid.initialize({ startOnLoad: false });
+
+
+        function formatFeedback(message) {
+            if (message.includes("⚠️")) {
+                return message.replace("⚠️", `<span style="color: red; font-weight: bold;">⚠️</span>`);
+            }
+            if (message.includes("💡")) {
+                return message.replace("💡", `<span style="color: #ff9800; font-weight: bold;">💡</span>`);
+            }
+            if (message.includes("✅")) {
+                return message.replace("✅", `<span style="color: green; font-weight: bold;">✅</span>`);
+            }
+            if (message.includes("❌")) {
+                return message.replace("❌", `<span style="color: darkred; font-weight: bold;">❌</span>`);
+            }
+            return message;
+        }
+        
+        
+
+        let feedbackMessages = {
+            "1NF": {
+                "atomicityFixed": "✅ Atomicity ensured! CustomerName split into FirstName and LastName.",
+                "noRepeatingGroups": "✅ No repeating groups detected! No changes were necessary.",
+                "repeatingGroupsFixed": "⚠️ Repeating groups detected! Moving Products to OrderDetails table."
+            },
+            "2NF": {
+                "partialDependencies": "⚠️ Partial dependency found! Address & Email only depend on CustomerID.",
+                "partialFixApplied": "✅ Partial dependencies fixed! Attributes moved to CustomerDetails table.",
+                "productMoved": "⚠️ Product details should be in OrderDetails. Moving now.",
+                "productFixApplied": "✅ Product details successfully moved to OrderDetails table."
+            },
+            "3NF": {
+                "transitiveDependency": "⚠️ Supplier information should be in Supplier table. Moving it now.",
+                "transitiveFixApplied": "✅ Transitive dependencies fixed! Supplier details moved to Supplier table."
+            }
+        };
+
+
+
+
+       
+        function resetMermaid(selector) {
+            setTimeout(() => {
+                document.querySelectorAll(selector).forEach(el => el.removeAttribute("data-processed"));
+                mermaid.init(undefined, document.querySelector(selector));
+            }, 50);
+        }
+
+    
+        function validate1NF() {
+            let userInput = document.getElementById("input-1nf").value.trim();
+            if (userInput === "") return;
+        
+            let attributes = [...new Set(userInput.split(",").map(attr => attr.trim().toUpperCase()))];
+        
+            console.log("🔍 1NF: Extracted Attributes Before Processing:", attributes);
+        
+            let diagramCode = `erDiagram\n  UNF {\n`;
+            attributes.forEach(attr => {
+                diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+            });
+            diagramCode += `  }\n`;
+        
+            let diagramContainer = document.getElementById("feedback-1nf");
+            diagramContainer.innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+        
+            resetMermaid("#feedback-1nf .mermaid");
+        }
+        
+        function fixAtomicity() {
+            console.log("Fixing Atomicity...");
+        
+            let userInput = document.getElementById("input-1nf").value.trim();
+            if (userInput === "") return;
+        
+            let attributes = [...new Set(userInput.split(",").map(attr => attr.trim().toUpperCase()))];
+        
+            let tables = {
+                "Customer": new Set(["CUSTOMERID", "FIRSTNAME", "LASTNAME", "CUSTOMEREMAIL", "AGE"]), 
+                "Order": new Set(["ORDERID", "CUSTOMERID", "ORDERDATE"]),
+                "Supplier": new Set(["SUPPLIERID"]),
+                "CustomerAddress": new Set(["ADDRESSID", "CUSTOMERID", "ADDRESS", "ADDRESS_TYPE"])
+            };
+        
+            let supplierAttributes = ["SUPPLIERNAME", "SUPPLIERCONTACT"];
+            let addressAttributes = ["BILLINGADDRESS", "DELIVERYADDRESS"];
+            let supplierDataFound = false;
+            let addressDataFound = false;
+        
+           
+            supplierAttributes.forEach(attr => {
+                if (attributes.includes(attr)) {
+                    tables["Supplier"].add(attr);
+                    supplierDataFound = true;
+                    console.log(`Moved ${attr} to Supplier table.`);
+                }
+            });
+        
+           
+            addressAttributes.forEach(attr => {
+                if (attributes.includes(attr)) {
+                    tables["CustomerAddress"].add("ADDRESS");
+                    tables["CustomerAddress"].add("ADDRESS_TYPE");
+                    addressDataFound = true;
+                    console.log(`Moved ${attr} to CustomerAddress table.`);
+                }
+            });
+        
+        
+            if (!tables["Customer"].has("AGE")) {
+                console.warn("AGE is missing! Adding it back.");
+                tables["Customer"].add("AGE");
+            }
+        
+         
+            let feedbackMessages = ["✅ CustomerName was split into FIRSTNAME and LASTNAME."];
+            if (supplierDataFound) {
+                feedbackMessages.push("✅ A Supplier table was created because Supplier-related attributes were found.");
+            }
+            if (addressDataFound) {
+                feedbackMessages.push("✅ A CustomerAddress table was created to store multiple addresses.");
+            }
+        
+            feedbackMessages = feedbackMessages.map(formatFeedback);
+            document.getElementById("atomicity-feedback").innerHTML = feedbackMessages.join("<br>");
+        
+            window.atomicityFixedTables = structuredClone(tables);
+        
+           
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+        
+            document.getElementById("after-atomicity").innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+        
+            resetMermaid("#after-atomicity .mermaid");
+        }
+        
+        
+
+
+        function fixRepeatingGroups() {
+            console.log("Fixing Repeating Groups...");
+        
+            let userInput = document.getElementById("input-1nf").value.trim();
+            if (userInput === "") {
+                console.warn(" No input detected!");
+                return;
+            }
+        
+            let attributes = [...new Set(userInput.split(",").map(attr => attr.trim().toUpperCase()))];
+        
+            let tables = structuredClone(window.atomicityFixedTables || {
+                "Customer": new Set(["CUSTOMERID", "FIRSTNAME", "LASTNAME", "CUSTOMEREMAIL"]),
+                "Order": new Set(["ORDERID", "CUSTOMERID", "ORDERDATE"]),
+                "OrderDetails": new Set(["ORDERDETAILID", "ORDERID", "PRODUCTID", "QUANTITY"]), 
+                "Product": new Set(["PRODUCTID", "PRODUCTNAME", "SUPPLIERID"]) // 
+            });
+        
+            let productsFound = false;
+            attributes.forEach(attr => {
+                if (attr.includes("PRODUCTNAME") || attr.includes("QUANTITY")) {
+                    productsFound = true;
+                }
+            });
+        
+            if (productsFound) {
+                tables["OrderDetails"] = new Set(["ORDERDETAILID", "ORDERID", "PRODUCTID", "QUANTITY"]); 
+                tables["Product"] = new Set(["PRODUCTID", "PRODUCTNAME", "SUPPLIERID"]); 
+            }
+        
+            window.repeatingGroupsFixedTables = structuredClone(tables);
+        
+            let feedbackContainer = document.getElementById("repeating-groups-feedback");
+            feedbackContainer.innerHTML = "✅ Repeating groups detected and moved to the OrderDetails table!";
+        
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+        
+            document.getElementById("after-repeating-groups").innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+        
+            resetMermaid("#after-repeating-groups .mermaid");
+        }
+        
+
+     
+        function validate2NF() {
+            console.log("🛠️ Validating 2NF...");
+        
+            if (!window.repeatingGroupsFixedTables) {
+                console.error("Missing Repeating Groups data. Run 'Fix Repeating Groups' first.");
+                return;
+            }
+        
+            let tables = structuredClone(window.repeatingGroupsFixedTables);
+            let feedbackMessages = [];
+        
+            
+            if (!tables["Order"]) {
+                console.warn("Missing Order table. Creating it now...");
+                tables["Order"] = new Set(["ORDERID", "CUSTOMERID", "ORDERDATE"]);
+                feedbackMessages.push(`<span style="color: orange;">⚠️ Order table was missing and has been created.</span>`);
+            }
+        
+            
+            let partialDependencies = new Set();
+            if (tables["Customer"].has("CUSTOMERADDRESS")) partialDependencies.add("CUSTOMERADDRESS");
+            if (tables["Customer"].has("BILLINGADDRESS")) partialDependencies.add("BILLINGADDRESS");
+            if (tables["Customer"].has("DELIVERYADDRESS")) partialDependencies.add("DELIVERYADDRESS");
+        
+            let derivedAttributes = new Set();
+            if (tables["Customer"].has("AGE")) {
+                derivedAttributes.add("AGE");
+            }
+        
+            console.log("🔍 Debug: 2NF Found Partial Dependencies:", partialDependencies);
+            console.log("🔍 Debug: 2NF Found Derived Attributes:", derivedAttributes);
+        
+           
+            if (partialDependencies.size > 0) {
+                feedbackMessages.push(
+                    `<span style="color: red;">⚠️ <strong>Partial dependencies detected:</strong></span> ${[...partialDependencies].join(
+                        ", "
+                    )}. Moving these to a separate <strong>CustomerAddress</strong> table.`
+                );
+            }
+        
+       
+            if (derivedAttributes.size > 0) {
+                tables["Customer"].delete("AGE"); 
+                tables["Customer"].add("DATEOFBIRTH"); 
+                feedbackMessages.push(
+                    `<span style="color: red;">⚠️ <strong>Derived attribute detected:</strong></span> AGE was replaced with DATEOFBIRTH.`
+                );
+            }
+        
+          
+            document.getElementById("before-2nf-text").innerHTML = feedbackMessages.join("<br><br>");
+            console.log(" 2NF Validation Complete. Updated Tables:", tables);
+        
+           
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+        
+            document.getElementById("before-2nf").innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+            resetMermaid("#before-2nf .mermaid");
+        
+           
+            window.before2NFTables = structuredClone(tables);
+        }
+        
+        function fix2NF() {
+            console.log("Fixing 2NF...");
+        
+            if (!window.before2NFTables) {
+                console.error("Missing 2NF validation data. Run 'Validate 2NF' first.");
+                return;
+            }
+        
+            let tables = structuredClone(window.before2NFTables);
+            let feedbackMessages = [];
+        
+           
+            if (tables["Customer"].has("AGE")) {
+                tables["Customer"].delete("AGE"); 
+                tables["Customer"].add("DATEOFBIRTH"); 
+                feedbackMessages.push("✅ AGE was removed and replaced with DATEOFBIRTH in Customer table.");
+            }
+        
+           
+            if (feedbackMessages.length === 0) {
+                feedbackMessages.push("✅ No changes were necessary. Database was already in 2NF.");
+            }
+        
+            console.log("2NF Fix Applied. Updated Tables:", tables);
+        
+           
+            document.getElementById("after-2nf-text").innerHTML = feedbackMessages.join("<br><br>");
+        
+          
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+        
+            document.getElementById("after-2nf").innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+        
+            resetMermaid("#after-2nf .mermaid");
+        
+            window.finalTables = structuredClone(tables);
+        }
+        
+        
+
+
+        function validate3NF() {
+            console.log(" Validating 3NF...");
+
+            if (!window.finalTables) {
+                console.error(" Missing final tables. Run 'Fix 2NF' first.");
+                return;
+            }
+
+            let tables = structuredClone(window.finalTables);
+            let feedbackMessages = [];
+
+            console.log("3NF Validation Complete. Checking for transitive dependencies...");
+
+            let supplierAttributes = ["SUPPLIERCONTACT", "SUPPLIERADDRESS"];
+            if (tables["Supplier"]) {
+                let needsFurtherNormalisation = false;
+                supplierAttributes.forEach(attr => {
+                    if (tables["Supplier"].has(attr)) {
+                        needsFurtherNormalization = true;
+                    }
+                });
+
+                if (needsFurtherNormalisation) {
+                    feedbackMessages.push(
+                        `<span style="color: #ff9800;">💡 <strong>Suggestion:</strong></span> If a supplier can have multiple contacts or addresses, consider creating separate <strong>SupplierContacts</strong> or <strong>SupplierAddresses</strong> tables.`
+                    );
+                }
+            }
+
+            if (feedbackMessages.length === 0) {
+                feedbackMessages.push( `<span style="color: green;">✅ No transitive dependencies found. The database is already in 3NF.</span>`);
+            }
+
+            feedbackMessages = feedbackMessages.map(formatFeedback);
+            document.getElementById("before-3nf-text").innerHTML = feedbackMessages.join("<br>");
+
+            console.log(" 3NF Validation Complete. Updated Tables:", tables);
+
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+
+            let beforeContainer = document.getElementById("before-3nf");
+            beforeContainer.innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+
+            resetMermaid("#before-3nf .mermaid");
+        }
+
+
+
+
+        
+        function fix3NF() {
+            console.log(" Fixing 3NF...");
+
+            if (!window.finalTables) {
+                console.error(" Missing final tables. Run 'Fix 2NF' first.");
+                return;
+            }
+
+            let tables = structuredClone(window.finalTables);
+            let feedbackMessages = [];
+
+            console.log("3NF fix. Checking for transitive dependencies...");
+
+            
+            feedbackMessages.push("✅ No changes needed! The database is already in 3NF.");
+
+            feedbackMessages = feedbackMessages.map(formatFeedback);
+            document.getElementById("after-3nf-text").innerHTML = feedbackMessages.join("<br>");
+
+            console.log(" 3NF fix Testing updated tables:", tables);
+
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+
+            let diagramContainer = document.getElementById("after-3nf");
+            diagramContainer.innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+
+            resetMermaid("#after-3nf .mermaid");
+
+            
+            window.finalTables = structuredClone(tables);
+        }
+
+
+      
+        function generateFinalSummaryDiagram() {
+            console.log(" Generating Final Summary Diagram...");
+
+            if (!window.finalTables) {
+                console.error(" Missing final tables. Run 'Fix 3NF' first.");
+                document.getElementById("final-summary-text").innerHTML =
+                    "❌ Error: Final tables are missing. Ensure you complete all normalisation steps.";
+                return;
+            }
+
+            let tables = structuredClone(window.finalTables);
+
+            let diagramCode = `erDiagram\n`;
+            Object.keys(tables).forEach(table => {
+                diagramCode += `  ${table} {\n`;
+                tables[table].forEach(attr => {
+                    diagramCode += `    ${attr.replace(/\s+/g, "_")} STRING\n`;
+                });
+                diagramCode += `  }\n`;
+            });
+
+            let diagramContainer = document.getElementById("final-summary-diagram");
+            if (!diagramContainer) {
+                console.error(" Could not find 'final-summary-diagram'. Check your HTML.");
+                return;
+            }
+
+            diagramContainer.innerHTML = `<div class="mermaid">${diagramCode}</div>`;
+
+            
+            document.getElementById("final-summary-container").style.display = "block";
+
+          
+            document.getElementById("final-summary-text").innerHTML =
+                "✅ Normalisation Complete! Below is your final database structure after 3NF.";
+
+            resetMermaid("#final-summary-diagram .mermaid");
+        }
+
+
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("btn-validate-1nf").addEventListener("click", validate1NF);
+            document.getElementById("btn-fix-atomicity").addEventListener("click", fixAtomicity);
+            document.getElementById("btn-fix-repeating-groups").addEventListener("click", fixRepeatingGroups);
+            document.getElementById("btn-validate-2nf").addEventListener("click", validate2NF);
+            document.getElementById("btn-fix-2nf").addEventListener("click", fix2NF);
+            document.getElementById("btn-validate-3nf").addEventListener("click", validate3NF);
+            document.getElementById("btn-fix-3nf").addEventListener("click", fix3NF); 
+            document.getElementById("btn-generate-summary").addEventListener("click", generateFinalSummaryDiagram);
+        });
+
+        function goToNext() {
+            window.location.href = "Quiz.html"; 
+        }
+
+    </script>
+
+
+</body>
+
+</html>
