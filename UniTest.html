@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./Images/favicon-16x16.png">
+    <title>HonourERD - Step-by-Step Normalisation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="./test.css">
+
+</head>
+
+<body>
+    <div class="scenario-container">
+        <h2>Scenario: <span class="highlight">University Enrollment System</span></h2>
+        <p class="scenario-intro">
+            Universities manage student enrollments, but without proper database structure, they face issues such as:
+        </p>
+
+        <ul class="issue-list">
+            <li class="points"> <strong>Repeating groups:</strong>&nbsp; Multiple courses stored in the same row, making
+                updates difficult.</li>
+            <li class="points"> <strong>Data redundancy:</strong>&nbsp; Instructor details duplicated for each student
+                enrolled in their course.</li>
+            <li class="points"><strong>Derived attributes:</strong>&nbsp; Age is stored but can be calculated from Date
+                of Birth.</li>
+            <li class="points"><strong>Update anomalies:</strong>&nbsp; If an instructor changes office, multiple
+                records need updating.</li>
+        </ul>
+
+        <p class="solution-text">
+            We will normalise the database step-by-step! (<strong>1NF → 2NF → 3NF</strong>).
+        </p>
+
+        <p class="task-text">
+            Start at 1NF and follow through the steps of normalisation with HonourERD.
+        </p>
+    </div>
+
+    <div id="step-1" class="step-container">
+        <h3>Initial UNF Table:</h3>
+        <div id="unf-table-container">
+            <table id="unf-table">
+                <thead>
+                    <tr>
+                        <th>StudentID</th>
+                        <th>StudentName</th>
+                        <th>DateOfBirth</th>
+                        <th>Age</th>
+                        <th>CourseID_1</th>
+                        <th>CourseName_1</th>
+                        <th>Instructor_1</th>
+                        <th>Grade_1</th>
+                        <th>CourseID_2</th>
+                        <th>CourseName_2</th>
+                        <th>Instructor_2</th>
+                        <th>Grade_2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Alice Smith</td>
+                        <td>2002-03-15</td>
+                        <td>21</td>
+                        <td>CS101</td>
+                        <td>Intro to Programming</td>
+                        <td>Prof. Johnson</td>
+                        <td>A</td>
+                        <td>MATH201</td>
+                        <td>Calculus I</td>
+                        <td>Prof. Williams</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Bob Jones</td>
+                        <td>2001-08-20</td>
+                        <td>22</td>
+                        <td>HIST101</td>
+                        <td>World History</td>
+                        <td>Prof. Davis</td>
+                        <td>C</td>
+                        <td>ENG101</td>
+                        <td>English Comp</td>
+                        <td>Prof. Miller</td>
+                        <td>A</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 🎓 Step 1: Fix Atomicity -->
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 1NF</h3>
+
+        <div class="subprocess-box1">
+            <h4>Step 1. Ensure Atomicity</h4>
+            <button id="btn-fix-university-atomicity">Apply Fix for Atomicity</button>
+            <div id="after-university-atomicity" class="mermaid"></div>
+        </div>
+
+        <div class="subprocess-box1">
+            <h4>Step 2. Eliminate Repeating Groups</h4>
+            <button id="btn-fix-university-repeating-groups">Apply Fix for Repeating Groups</button>
+            <div id="after-university-repeating-groups" class="mermaid"></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 🎓 Step 2: Remove Derived Attributes -->
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 2NF</h3>
+
+        <div class="subprocess-box1">
+            <h4>Step 1. Remove Derived Attributes</h4>
+            <button id="btn-fix-university-derived-attributes">Apply Fix for Derived Attributes</button>
+            <div id="after-university-derived-attributes" class="mermaid"></div>
+        </div>
+
+        <div class="subprocess-box1">
+            <h4>Step 2. Remove Partial Dependencies</h4>
+            <button id="btn-fix-university-partial-dependency">Apply Fix for Partial Dependencies</button>
+            <div id="after-university-partial-dependency" class="mermaid"></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 🎓 Step 3: Remove Transitive Dependencies -->
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 3NF</h3>
+
+        <div class="subprocess-box1">
+            <h4>Step 1. Remove Transitive Dependencies</h4>
+            <button id="btn-fix-university-transitive-dependency">Apply Fix for Transitive Dependencies</button>
+            <div id="after-university-transitive-dependency" class="mermaid"></div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="final-summary" class="step-container">
+        <div class="subprocess-box1">
+            <h2>Final Normalised Database (3NF)</h2>
+    
+            <p class="summary-intro">
+                We've successfully transformed the database from **Unnormalised Form (UNF) → 1NF → 2NF → 3NF!**  
+                The final structure eliminates redundancy, improves efficiency, and ensures data integrity.
+            </p>
+    
+            <!-- ✅ Students Table -->
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <h3 class="table-title">Students Table</h3>
+                    <table border="1">
+                        <tr class="table-header-final">
+                            <th>StudentID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>DateOfBirth</th>
+                        </tr>
+                        <tr><td>101</td><td>Alice</td><td>Smith</td><td>2002-03-15</td></tr>
+                        <tr><td>102</td><td>Bob</td><td>Jones</td><td>2001-08-20</td></tr>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- ✅ Courses Table -->
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <h3 class="table-title">Courses Table</h3>
+                    <table border="1">
+                        <tr class="table-header-final">
+                            <th>CourseID</th>
+                            <th>CourseName</th>
+                            <th>InstructorID</th>
+                        </tr>
+                        <tr><td>CS101</td><td>Intro to Programming</td><td>I001</td></tr>
+                        <tr><td>MATH201</td><td>Calculus I</td><td>I002</td></tr>
+                        <tr><td>HIST101</td><td>World History</td><td>I003</td></tr>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- ✅ Enrollment Table -->
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <h3 class="table-title">Enrollment Table</h3>
+                    <table border="1">
+                        <tr class="table-header-final">
+                            <th>StudentID</th>
+                            <th>CourseID</th>
+                            <th>Grade</th>
+                        </tr>
+                        <tr><td>101</td><td>CS101</td><td>A</td></tr>
+                        <tr><td>101</td><td>MATH201</td><td>B</td></tr>
+                        <tr><td>102</td><td>HIST101</td><td>C</td></tr>
+                        <tr><td>102</td><td>ENG101</td><td>A</td></tr>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- ✅ Instructors Table -->
+            <div class="table-wrapper">
+                <div class="table-container">
+                    <h3 class="table-title">Instructors Table</h3>
+                    <table border="1">
+                        <tr class="table-header-final">
+                            <th>InstructorID</th>
+                            <th>InstructorName</th>
+                            <th>InstructorOffice</th>
+                        </tr>
+                        <tr><td>I001</td><td>Prof. Johnson</td><td>Room 101</td></tr>
+                        <tr><td>I002</td><td>Prof. Williams</td><td>Room 202</td></tr>
+                        <tr><td>I003</td><td>Prof. Davis</td><td>Room 303</td></tr>
+                    </table>
+                </div>
+            </div>
+    
+            <h3>Key Takeaways:</h3>
+            <ul class="summary-list">
+                <li>✅ **1NF:** Removed repeating groups & ensured atomicity.</li>
+                <li>✅ **2NF:** Eliminated partial dependencies (data now fully depends on the primary key).</li>
+                <li>✅ **3NF:** Removed transitive dependencies, ensuring cleaner relationships.</li>
+                <li>Final Result: A fully optimised 3NF database with minimal redundancy & efficient querying!</li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <button onclick="goToNext()">Next</button>
+
+
+</body>
+
+
+<script>
+    // ✅ Initialize Mermaid
+         // ✅ Initialize Mermaid Diagrams
+         mermaid.initialize({ startOnLoad: false });
+
+         /* ------------------------------------------------ */
+         /* ✅ Helper Functions (For Highlighting & Rendering) */
+         /* ------------------------------------------------ */
+ 
+         // ✅ Reset Mermaid Diagrams
+         function resetMermaid(selector) {
+             setTimeout(() => {
+                 document.querySelectorAll(selector).forEach(el => el.removeAttribute("data-processed"));
+                 mermaid.init(undefined, document.querySelector(selector));
+             }, 50);
+         }
+ 
+         // ✅ Highlight Cell Changes
+         function highlightChanges(rowIndex, colIndex, highlightClass = "highlight-cell") {
+             let table = document.getElementById("unf-table");
+             let cell = table.rows[rowIndex]?.cells[colIndex];
+ 
+             if (cell) {
+                 cell.classList.add(highlightClass);
+                 setTimeout(() => {
+                     cell.classList.remove(highlightClass);
+                 }, 3000);
+             }
+         }
+ 
+     
+        
+         function fixUniversityAtomicity() {
+            console.log("Fixing Atomicity...");
+        
+            let tablesBefore = {
+                "Students": ["StudentID", "StudentName", "DateOfBirth", "Age"]
+            };
+        
+            let tablesAfter = {
+                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth"]
+            };
+        
+            let sampleDataBefore = {
+                "Students": [
+                    ["101", "<span class='error-text'>Alice Smith</span>", "2002-03-15", "<span class='error-text'>21</span>"],
+                    ["102", "<span class='error-text'>Bob Jones</span>", "2001-08-20", "<span class='error-text'>22</span>"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Students": [
+                    ["101", "<span class='fix-text'>Alice</span>", "<span class='fix-text'>Smith</span>", "2002-03-15"],
+                    ["102", "<span class='fix-text'>Bob</span>", "<span class='fix-text'>Jones</span>", "2001-08-20"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Student Name</span> is stored as a **full name**, and <span class='error-text'>Age</span> is stored but can be **calculated** from Date of Birth.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-1nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We split <span class='fix-text'>Student Name</span> into <span class='fix-text'>First Name</span> and <span class='fix-text'>Last Name</span>, and removed <span class='fix-text'>Age</span>.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-1nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-university-atomicity").innerHTML = outputHTML;
+        }
+        function fixUniversityRepeatingGroups() {
+            console.log("Fixing Repeating Groups...");
+        
+            let tablesBefore = {
+                "Enrollment": ["StudentID", "CourseID_1", "CourseName_1", "Instructor_1", "Grade_1", 
+                               "CourseID_2", "CourseName_2", "Instructor_2", "Grade_2"]
+            };
+        
+            let tablesAfter = {
+                "Enrollment": ["StudentID", "CourseID", "CourseName", "Instructor", "Grade"]
+            };
+        
+            let sampleDataBefore = {
+                "Enrollment": [
+                    ["101", "<span class='error-text'>CS101</span>", "Intro to Programming", "Prof. Johnson", "A", 
+                           "<span class='error-text'>MATH201</span>", "Calculus I", "Prof. Williams", "B"],
+                    ["102", "<span class='error-text'>HIST101</span>", "World History", "Prof. Davis", "C",
+                           "<span class='error-text'>ENG101</span>", "English Comp", "Prof. Miller", "A"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Enrollment": [
+                    ["101", "<span class='fix-text'>CS101</span>", "Intro to Programming", "Prof. Johnson", "A"],
+                    ["101", "<span class='fix-text'>MATH201</span>", "Calculus I", "Prof. Williams", "B"],
+                    ["102", "<span class='fix-text'>HIST101</span>", "World History", "Prof. Davis", "C"],
+                    ["102", "<span class='fix-text'>ENG101</span>", "English Comp", "Prof. Miller", "A"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> Multiple courses are stored in **the same row**, violating **1NF** by creating repeating groups.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-1nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> Each **course enrollment** now has **its own row**, eliminating **repeating groups**.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-1nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-university-repeating-groups").innerHTML = outputHTML;
+        }
+
+
+        function fixUniversityDerivedAttributes() {
+            console.log("Fixing Derived Attributes...");
+        
+            let tablesBefore = {
+                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth", "Age"]
+            };
+        
+            let tablesAfter = {
+                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth"]
+            };
+        
+            let sampleDataBefore = {
+                "Students": [
+                    ["101", "Alice", "Smith", "2002-03-15", "<span class='error-text'>21</span>"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Students": [
+                    ["101", "Alice", "Smith", "<span class='fix-text'>2002-03-15</span>"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Age</span> is a **Derived Attribute**  
+                    (it can be **calculated from Date of Birth**), violating **2NF**.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-2nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We **removed Age** since it can be **calculated from Date of Birth**,  
+                    ensuring the database follows **2NF**.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-2nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach((cell, index) => {
+                        // ✅ Highlight DateOfBirth **only in the AFTER table**
+                        if (tablesAfter["Students"][index] === "DateOfBirth") {
+                            outputHTML += `<td><span class='fix-text'>${cell}</span></td>`;
+                        } else {
+                            outputHTML += `<td>${cell}</td>`;
+                        }
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-university-derived-attributes").innerHTML = outputHTML;
+        }
+        
+        
+        
+        function fixUniversityPartialDependencies() {
+            console.log("Fixing Partial Dependencies...");
+        
+            let tablesBefore = {
+                "Enrollment": ["StudentID", "CourseID", "CourseName", "Instructor", "Grade"]
+            };
+        
+            let tablesAfter = {
+                "Enrollment": ["StudentID", "CourseID", "Grade"],
+                "Courses": ["CourseID", "CourseName", "Instructor"]
+            };
+        
+            let sampleDataBefore = {
+                "Enrollment": [
+                    ["101", "CS101", "Intro to Programming", "<span class='error-text'>Prof. Johnson</span>", "A"],
+                    ["102", "MATH201", "Calculus I", "<span class='error-text'>Prof. Williams</span>", "B"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Enrollment": [
+                    ["101", "CS101", "A"],
+                    ["102", "MATH201", "B"]
+                ],
+                "Courses": [
+                    ["CS101", "Intro to Programming", "<span class='fix-text'>Prof. Johnson</span>"],
+                    ["MATH201", "Calculus I", "<span class='fix-text'>Prof. Williams</span>"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> The <span class='error-text'>Instructor</span> column **partially depends on CourseID**, not StudentID.  
+                    This **violates 2NF**, causing **duplicate instructor names** for each enrollment.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-2nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We moved <span class='fix-text'>Instructor</span> to a new <strong>Courses</strong> table.  
+                    Now, instructors are stored **only once per course**, eliminating partial dependency.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-2nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-university-partial-dependency").innerHTML = outputHTML;
+        }
+        
+        
+        function fixUniversityTransitiveDependencies() {
+            console.log("Fixing Transitive Dependencies...");
+        
+            let tablesBefore = {
+                "CourseInstructors": ["CourseID", "Instructor", "InstructorOffice"]
+            };
+        
+            let tablesAfter = {
+                "CourseInstructors": ["CourseID", "Instructor"],
+                "Instructors": ["Instructor", "InstructorOffice"]
+            };
+        
+            let sampleDataBefore = {
+                "CourseInstructors": [
+                    ["CS101", "<span class='error-text'>Prof. Johnson</span>", "<span class='error-text'>Room 301</span>"],
+                    ["MATH201", "<span class='error-text'>Prof. Williams</span>", "<span class='error-text'>Room 202</span>"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "CourseInstructors": [
+                    ["CS101", "<span class='fix-text'>Prof. Johnson</span>"],
+                    ["MATH201", "<span class='fix-text'>Prof. Williams</span>"]
+                ],
+                "Instructors": [
+                    ["<span class='fix-text'>Prof. Johnson</span>", "<span class='fix-text'>Room 301</span>"],
+                    ["<span class='fix-text'>Prof. Williams</span>", "<span class='fix-text'>Room 202</span>"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> The <span class='error-text'>Instructor Office</span> **depends on Instructor, not CourseID**.  
+                    This creates a **Transitive Dependency**, violating **3NF**.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-3nf-step1";
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> Moved <span class='fix-text'>Instructor Office</span> to a new **Instructors** table.  
+                    Now, each instructor is stored **only once**, ensuring proper **3NF**.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-3nf-step1";
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-university-transitive-dependency").innerHTML = outputHTML;
+        }
+
+
+        
+        
+            /* ✅ Attach Event Listeners */
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("btn-fix-university-atomicity").addEventListener("click", fixUniversityAtomicity);
+                document.getElementById("btn-fix-university-repeating-groups").addEventListener("click", fixUniversityRepeatingGroups);
+                document.getElementById("btn-fix-university-derived-attributes").addEventListener("click", fixUniversityDerivedAttributes);
+                document.getElementById("btn-fix-university-partial-dependency").addEventListener("click", fixUniversityPartialDependencies);
+                document.getElementById("btn-fix-university-transitive-dependency").addEventListener("click", fixUniversityTransitiveDependencies);
+        
+            });
+
+            function goToNext() {
+                window.location.href = "Quiz.html";
+            } 
+        </script>
+        
+
+
+      
+
+
+
+</html>

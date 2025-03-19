@@ -1,51 +1,353 @@
-/* scenario styling */
+/* ============================================================= */
+/* ✅ GENERAL PAGE STYLING */
+/* ============================================================= */
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
     text-align: center;
     background-color: #f4f4f4;
 }
-.logo-container {
-    display: flex;
-   justify-content: center;
-  
-}
 
-
-#logo{
-    width: 150px;
-    height: 150px;
-}
 h1 {
     font-size: 28px;
     color: #333;
     margin-bottom: 20px;
 }
-#step-1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.hidden {
-    display: none;
-}
-.step-container {
-    background: #F9f9f9;
-    padding: 20px;
-    margin: 20px auto;
+
+/* ============================================================= */
+/* ✅ SCENARIO STYLING (Intro Section) */
+/* ============================================================= */
+
+.scenario-container {
+    background: #faf6d8;
+    border: 2px solid #000000;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
+    margin: 10px auto 20px auto;
     width: 80%;
     max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    text-align: left;
+    line-height: 1.5;
+}
 
+.scenario-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 8px;
 }
-.step-container:nth-child(even) { background: #f9f9f9; }
-.issue-identified{
+
+.scenario-intro {
+    font-size: 14.5px;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.issue-list li strong {
+    color: #c0392b;
+}
+
+/* ============================================================= */
+/* ✅ STEP CONTAINERS (For 1NF, 2NF, etc.) */
+/* ============================================================= */
+
+.step-container {
+    background-color: #fdf7d9;
+    border: 1px solid #d1c6a5;
+    padding: 15px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* ============================================================= */
+/* ✅ SUBPROCESS BOXES (Steps Inside Each NF) */
+/* ============================================================= */
+
+.subprocess-box1 {
+    background-color: white;
+    border: 2px solid #0c0900;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 900px; 
+    box-sizing: border-box;
+}
+
+.subprocess-box1 h4 {
+    margin-top: 0;
+}
+
+/* ============================================================= */
+/* ✅ FEEDBACK BOXES (For Fix Messages) */
+/* ============================================================= */
+
+#atomicity-feedback,
+#repeating-groups-feedback,
+#derived-attributes-feedback,
+#partial-dependency-feedback {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-left: 4px solid #28a745;
+    width: calc(100% - 40px);
+    margin: 10px auto;
+    text-align: left;
+    max-width: 800px;
+}
+
+/* ============================================================= */
+/* ✅ TABLE STYLING (Fixes Layout Issues) */
+/* ============================================================= */
+
+/* ✅ Ensures Tables Fit Properly */
+.table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* ✅ Allows scrolling for wide tables */
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* ✅ Fix Table Containers */
+.table-container {
+    display: block; /* ✅ Stop flexbox from messing things up */
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* ✅ Fix Table Layout (Columns Stay Even) */
+.table-container table {
+    border-collapse: collapse;
+    width: 100%; /* ✅ Expands table properly */
+    table-layout: fixed; /* ✅ Ensures equal column widths */
+    word-wrap: break-word;
+}
+
+/* ✅ Fix Headers & Cells */
+.table-container th,
+.table-container td {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    text-align: center;
+    white-space: nowrap; /* ✅ Stops text from breaking */
+    overflow: hidden;
+}
+
+/* ✅ Allow Text Wrapping ONLY for Table Body */
+.table-container td {
+    white-space: normal; /* ✅ Fixes text breaking */
+}
+
+/* ✅ Ensure Tables Scroll on Mobile */
+@media (max-width: 768px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+    .table-container {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================= */
+/* ✅ HIGHLIGHTING FIXES */
+/* ============================================================= */
+.table-header-1nf-step1 { background-color: #DAD89B; } /* Light Yellow */
+.table-header-1nf-step2 { background-color: #DEb475; } /* Darker Yellow */
+.table-header-2nf-step1 { background-color: #CD8B6F; } /* Light Blue */
+.table-header-2nf-step2 { background-color: #876575; } /* Darker Blue */
+.table-header-3nf-step1 { background-color: #60566e; } /* Light Purple */
+
+.highlight-cell {
+    background-color: yellow;
+    font-weight: bold;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.name-highlight {
+    background-color: #d6d121;
+    font-weight: bold;
+}
+
+.change-highlight {
+    border: 3px solid red !important; /* 🔴 Full Red Border */
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px; /* ✅ Rounded for smooth look */
+}
+.atomicity-fix {
+    border: 3px solid orange !important; /* 🟠 Fix for Splitting Names */
+}
+
+.repeating-group-fix {
+    border: 3px solid red !important; /* 🔴 Repeating Groups Fix */
+}
+
+.partial-dependency-fix {
+    border: 3px solid blue !important; /* 🔵 Partial Dependency Fix */
+}
+
+.transitive-dependency-fix {
+    border: 3px solid purple !important; /* 🟣 Transitive Dependency Fix */
+}
+
+.dob-highlight {
+    border: 3px solid green !important; /* 🟢 DOB Highlight */
+}
+
+/* ✅ General Fix Description Styling */
+.problem-text {
     color: red;
+    font-weight: bold;
+    background: #ffebee;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
 }
-.issue-fixed{
+
+.fix-text {
     color: green;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
 }
+
+/* ✅ Table Containers */
+.table-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.table-container {
+    width: 90%;
+    max-width: 800px;
+    overflow-x: auto;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+}
+
+/* ✅ Fix Table Header */
+.table-container table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+.table-container th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ✅ Table Cell Fix */
+.table-container td {
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* ✅ Before Fix Styling */
+.before-fix th,
+.before-fix td {
+    background: #ffebee !important;
+}
+
+/* ✅ After Fix Styling */
+.after-fix th,
+.after-fix td {
+    background: #e8f5e9 !important;
+}
+
+/* ✅ Highlight Cells (For Mistakes) */
+.full-cell-border {
+    border: 2px solid red !important;
+}
+
+/* ✅ Fix Borders (For Fixed Items) */
+.fix-border {
+    border: 2px solid green !important;
+}
+
+/* ✅ Responsive Fix */
+@media (max-width: 768px) {
+    .table-container {
+        width: 100%;
+    }
+}
+
+
+/* ✅ Reduce Text Size in Small Screens */
+@media (max-width: 768px) {
+    .table-container th,
+    .table-container td {
+        font-size: 14px;
+        padding: 6px;
+    }
+}
+
+/* ✅ Fix Highlighting Issues */
+.error-text {
+    color: red;
+    font-weight: bold;
+    background: #ffebee;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block; /* ✅ Prevents text from crushing */
+}
+
+.fix-text {
+    color: green;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* ✅ Header Colors for Different Stages */
+.error-header {
+    background: #ffcccc !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+.fix-header {
+    background: #ccffcc !important;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ✅ Add Borders to Highlight Issues */
+.full-cell-border {
+    border: 2px solid red !important;
+}
+
+
+
+
+
+/* ============================================================= */
+/* ✅ BUTTON STYLING */
+/* ============================================================= */
 
 button {
     background: #007bff;
@@ -70,89 +372,71 @@ button:hover {
     background: #218838;
 }
 
-.subprocess-box1 {
-    margin-top: 15px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    background: #EFEAC9;
-    border-radius: 5px;
-    text-align: left;
+/* ============================================================= */
+/* ✅ UNF TABLE STYLING (Fix Layout Issues) */
+/* ============================================================= */
+
+#unf-table-container {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
 }
 
-.subprocess-box2 {
-    margin-top: 15px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    background: #DCEFC9;
-    border-radius: 5px;
+#unf-table {
+    width: 100%;
+    border-collapse: collapse;
     text-align: left;
+    background-color: white;
+  
+}
+#unf-table th {
+    background-color: #cFEEB6 ;
 }
 
-.subprocess-box3 {
-    margin-top: 15px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    background: #C9D9EF;
-    border-radius: 5px;
-    text-align: left;
+#unf-table th, #unf-table td {
+    padding: 10px;
+    border: 1px solid #5c5c5c;
+    white-space: nowrap;
 }
 
-.subprocess-box4 {
-    margin-top: 15px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    background: #A1D6B2;
-    border-radius: 5px;
-    text-align: left;
+/* Ensure wide columns fit */
+#unf-table th:nth-child(8),
+#unf-table th:nth-child(9),
+#unf-table th:nth-child(11),
+#unf-table th:nth-child(12),
+#unf-table th:nth-child(13) {
+    min-width: 150px;
+    white-space: normal;
 }
-.mermaid {
-    margin: 15px auto;
-    display: block;
+
+/* Center align IDs, Dates, and Times */
+#unf-table td:nth-child(1),
+#unf-table td:nth-child(7),
+#unf-table td:nth-child(10),
+#unf-table td:nth-child(8),
+#unf-table td:nth-child(9) {
     text-align: center;
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-ol {
-    padding-left: 25px;
+/* ============================================================= */
+/* ✅ MOBILE FIXES */
+/* ============================================================= */
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+    .table-container {
+        width: 100%;
+    }
+    .subprocess-box1 {
+        width: 100%;
+    }
 }
 
-li {
-    margin-bottom: 12px;
-    font-size: 16px;
-    text-align: left;
-}
+/* ============================================================= */
 
-textarea {
-    width: 80%;
-    height: 100px;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
 
-#summary {
-    background: white;
-    border: 1px solid black;
-}
-
-#btn-summary {
-    background: #ff5722;
-}
-
-#btn-summary:hover {
-    background: #e64a19;
-}
-.error-message {
-    color: #dc3545;
-    font-weight: bold;
-    padding: 10px;
-    border-left: 4px solid #dc3545;
-    background: #f8d7da;
-}
 
 
 /* QUIZ STYLING */
@@ -164,7 +448,7 @@ textarea {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid #5c5c5c;
     border-radius: 8px;
     background-color: #f9f9f9;
     margin: 20px auto;
@@ -187,7 +471,7 @@ textarea {
 
 .table-container {
     display: inline-block;
-    width: 45%;
+  
     min-height: 50px;
     border: 2px solid #ccc;
     border-radius: 6px;

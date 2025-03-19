@@ -1,0 +1,330 @@
+/* ============================================================= */
+/* ✅ GENERAL PAGE STYLING */
+/* ============================================================= */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ============================================================= */
+/* ✅ SCENARIO STYLING (Intro Section) */
+/* ============================================================= */
+.scenario-container {
+    background: #faf6d8;
+    border: 2px solid #000000;
+    padding: 15px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.scenario-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.issue-list li strong {
+    color: #c0392b;
+}
+#final-summary {
+    background-color: #fdf7d9;
+    border: 2px solid #0c0900;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-height: 250px;
+}
+/* ============================================================= */
+/* ✅ STEP CONTAINERS (1NF, 2NF, 3NF Sections) */
+/* ============================================================= */
+.step-container {
+    background-color: #fdf7d9;
+    border: 1px solid #d1c6a5;
+    padding: 15px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* ============================================================= */
+/* ✅ SUBPROCESS BOXES (Each Step Inside 1NF, 2NF, 3NF) */
+/* ============================================================= */
+.subprocess-box1 {
+    background-color: white;
+    border: 2px solid #0c0900;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+}
+/* ✅ Reduce space between Before/After Fix sections */
+.before-after-label {
+    margin: 10px 0 5px 0; /* Reduce space above/below */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* ✅ Keep feedback boxes closer to tables */
+.feedback-box {
+    margin-bottom: 5px; /* Reduce excessive space */
+    padding: 6px 10px; /* Keep text readable */
+}
+
+/* ✅ Fix step sections spacing */
+.step-container {
+    margin-bottom: 15px; /* Keep sections tighter */
+}
+
+/* ✅ Reduce table spacing */
+.table-wrapper {
+    margin-bottom: 8px; /* Reduce space between tables */
+}
+
+/* ✅ Ensure Before/After Fix headers align properly */
+h3.before-after-label {
+    text-align: center;
+    margin: 5px 0; /* Reduce top margin */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ✅ Fix spacing around buttons */
+button {
+    margin: 8px; /* Reduce button spacing */
+}
+
+
+/* ============================================================= */
+/* ✅ FEEDBACK BOXES (For Fix Messages) */
+/* ============================================================= */
+/* ✅ Problem Feedback Box (Before Fix) */
+.feedback-box.error-feedback {
+    border-left: 4px solid red;
+    background: #ffe5e5;
+    padding: 8px 12px;
+    margin: 10px auto;
+    text-align: left;
+    font-size: 14px;
+    max-width: 800px;
+}
+
+/* ✅ Fix Feedback Box (After Fix) */
+.feedback-box.fix-feedback {
+    border-left: 4px solid green;
+    background: #e5ffe5;
+    padding: 8px 12px;
+    margin: 10px auto;
+    text-align: left;
+    font-size: 14px;
+    max-width: 800px;
+}
+
+/* ✅ Problem Text */
+.error-text {
+    color: red;
+    font-weight: bold;
+    background: #ffebee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* ✅ Fix Text */
+.fix-text {
+    color: green;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* ============================================================= */
+/* ✅ TABLE STYLING (Fixes Layout Issues) */
+/* ============================================================= */
+.table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ✅ Fix Table Layout */
+.table-container {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* ✅ Fix Table Header Colors */
+.table-header-1nf-step1 { background-color: #DAD89B; }
+.table-header-1nf-step2 { background-color: #DEB475; }
+.table-header-2nf-step1 { background-color: #CD8B6F; }
+.table-header-2nf-step2 { background-color: #876575; }
+.table-header-3nf-step1 { background-color: #60566e; }
+
+/* ✅ Fix Headers & Cells */
+.table-container table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+    word-wrap: break-word;
+}
+
+.table-container th,
+.table-container td {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #1c1c1c;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* ✅ Allow Text Wrapping for Table Body */
+.table-container td {
+    white-space: normal;
+}
+
+/* ============================================================= */
+/* ✅ BUTTON STYLING */
+/* ============================================================= */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* ============================================================= */
+/* ✅ MOBILE FIXES */
+/* ============================================================= */
+@media (max-width: 768px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+    .table-container {
+        width: 100%;
+    }
+}
+
+/* ============================================================= */
+/* ✅ UNF TABLE STYLING (Fix Layout Issues) */
+/* ============================================================= */
+#unf-table-container {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 10px auto;
+}
+
+#unf-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background-color: white;
+}
+
+#unf-table th {
+    background-color: #A3DE73;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#unf-table th, 
+#unf-table td {
+    padding: 10px;
+    border: 1px solid #5c5c5c;
+    white-space: nowrap;
+}
+
+#unf-table td {
+    text-align: center;
+}
+
+/* ✅ Ensure wide columns fit */
+#unf-table th:nth-child(8),
+#unf-table th:nth-child(9),
+#unf-table th:nth-child(11),
+#unf-table th:nth-child(12),
+#unf-table th:nth-child(13) {
+    min-width: 150px;
+    white-space: normal;
+}
+
+/* ✅ Center align IDs, Dates, and Times */
+#unf-table td:nth-child(1),
+#unf-table td:nth-child(7),
+#unf-table td:nth-child(10),
+#unf-table td:nth-child(8),
+#unf-table td:nth-child(9) {
+    text-align: center;
+}
+/* ✅ Ensure final summary section tables have a clean white background */
+#final-summary .table-container table {
+    background-color: white !important; /* ⬅ Force white background */
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+    word-wrap: break-word;
+}
+
+/* ✅ Ensure final summary table headers stand out */
+#final-summary .table-container th {
+    background-color: #70FF7E !important; /* ⬅ Light gray for better contrast */
+    color: black !important;
+    font-weight: bold;
+    border: 1px;
+}
+
+
+.summary-intro {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.summary-list {
+    text-align: left;
+    list-style-type: none;
+    padding: 0;
+}
+
+.summary-list li {
+    background: #e8f5e9;
+    border-left: 5px solid green;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+

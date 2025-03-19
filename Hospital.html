@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./Images/favicon-16x16.png">
+    <title>HonourERD - Step-by-Step Normalisation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="./test.css">
+
+</head>
+
+<body>
+    <h1>HonourERD</h1>
+
+    <div class="scenario-container">
+        <h2>Scenario: <span class="highlight">Hospital Data Overload</span></h2>
+        <p class="scenario-intro">
+            Hospitals rely on vast amounts of patient, doctor, treatment, and billing data. However, CityCare private
+            Hospital
+            struggles with a disorganised database where everything is stored in a single, unstructured table, leading
+            to:
+        </p>
+
+        <ul class="issue-list">
+            <li class="points"> <strong>Duplicate records:</strong>&nbsp; Patients appear multiple times, causing
+                redundancy.</li>
+            <li class="points"> <strong>Repetitive doctor details:</strong>&nbsp; The same doctor is listed for multiple
+                patients, leading to unnecessary duplication.</li>
+            <li class="points"><strong>Slow Processing:</strong>&nbsp; Retrieving patient history takes too long due to
+                mixed and redundant data.</li>
+            <li class="points"><strong>Billing errors:</strong>&nbsp; Treatments and payments are linked improperly,
+                causing financial discrepancies.</li>
+        </ul>
+
+        <p class="solution-text">
+            Normalise the database step-by-step to fix these issues! (<strong>1NF → 2NF → 3NF</strong>).
+        </p>
+
+        <p class="task-text">
+            Start at 1nf and follow through the steps of normalisation with HonourERD
+        </p>
+    </div>
+
+    <div id="step-1" class="step-container">
+        <h3>Initial UNF Table:</h3>
+        <div id="unf-table-container">
+            <table id="unf-table">
+                <thead>
+                    <tr>
+                        <th>PatientID</th>
+                        <th>PatientName</th>
+                        <th>DOB</th>
+                        <th>Age</th>
+                        <th>InsurancePlan</th>
+                        <th>AppointmentID</th>
+                        <th>AppointmentDate</th>
+                        <th>AppointmentTime</th>
+                        <th>DoctorID</th>
+                        <th>DoctorName</th>
+                        <th>Specialty</th>
+                        <th>DiagnosisDetails</th>
+                        <th>PrescribedMedications</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>John Smith</td>
+                        <td>1990-03-25</td>
+                        <td>34</td>
+                        <td>Plan A</td>
+                        <td>A100</td>
+                        <td>2024-06-10</td>
+                        <td>10:30 AM</td>
+                        <td>D001</td>
+                        <td>Dr. Adams</td>
+                        <td>Cardiology</td>
+                        <td>Hypertension</td>
+                        <td>Aspirin</td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Jane Doe</td>
+                        <td>1985-08-17</td>
+                        <td>39</td>
+                        <td>Plan B</td>
+                        <td>A101</td>
+                        <td>2024-06-12</td>
+                        <td>11:00 AM</td>
+                        <td>D002</td>
+                        <td>Dr. Brown</td>
+                        <td>Neurology</td>
+                        <td>Migraine</td>
+                        <td>Ibuprofen</td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Michael Johnson</td>
+                        <td>1995-01-30</td>
+                        <td>29</td>
+                        <td>Plan C</td>
+                        <td>A102</td>
+                        <td>2024-06-14</td>
+                        <td>12:00 PM</td>
+                        <td>D003</td>
+                        <td>Dr. Clark</td>
+                        <td>Dermatology</td>
+                        <td>Eczema</td>
+                        <td>Hydrocortisone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <hr>
+
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 1NF</h3>
+
+        <div class="subprocess-box1">
+            <h4>Step 1. Ensure Atomicity</h4>
+
+           
+
+            <button id="btn-fix-atomicity">Apply Fix for Atomicity</button>
+            <div id="after-atomicity" class="mermaid"></div>
+        </div>
+
+        <div class="subprocess-box1" id="repeating-groups-explanation">
+            <h4>Step 2. Eliminate Repeating Groups</h4>
+
+          
+
+            <button id="btn-fix-repeating-groups">Apply Fix for Repeating Groups</button>
+            <div id="after-repeating-groups" class="mermaid"></div>
+
+
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 2NF</h3>
+
+        <!-- Step 1: Remove Derived Attributes -->
+        <div class="subprocess-box1">
+            <h4>Step 1. Remove Derived Attributes</h4>
+
+          
+
+            <button id="btn-fix-derived-attributes">Apply Fix for Derived Attributes</button>
+            <div id="after-derived-attributes" class="mermaid"></div>
+        </div>
+
+        <!-- Step 2: Fix Partial Dependencies -->
+        <div class="subprocess-box1">
+            <h4>Step 2. Remove Partial Dependencies</h4>
+
+          
+
+            <button id="btn-fix-partial-dependency">Apply Fix for Partial Dependencies</button>
+            <div id="after-partial-dependency" class="mermaid"></div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="step-container">
+        <h3>Subprocesses of Achieving 3NF</h3>
+    
+        <!-- Step 1: Remove Transitive Dependencies -->
+        <div class="subprocess-box1">
+            <h4>Step 1. Remove Transitive Dependencies</h4>
+    
+            
+            <button id="btn-fix-transitive-dependency">Apply Fix for Transitive Dependencies</button>
+            <div id="after-transitive-dependency" class="mermaid"></div>
+        </div>
+    </div>
+    
+    <div id="final-summary" class="step-container">
+        <div class="subprocess-box1">
+        <h2> Final Normalised Database (3NF) </h2>
+    
+        <p class="summary-intro">
+            We've successfully transformed the database from Unnormalised Form (UNF) → 1NF → 2NF → 3NF!  
+            The final structure eliminates redundancy, improves efficiency, and ensures data integrity.
+        </p>
+    
+        <!-- ✅ Patient Table -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Patient Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>PatientID</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>DOB</th>
+                        <th>InsurancePlan</th>
+                    </tr>
+                    <tr><td>001</td><td>John</td><td>Smith</td><td>1990-03-25</td><td>Plan A</td></tr>
+                    <tr><td>002</td><td>Jane</td><td>Doe</td><td>1985-08-17</td><td>Plan B</td></tr>
+                    <tr><td>003</td><td>Michael</td><td>Johnson</td><td>1995-01-30</td><td>Plan C</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <!-- ✅ Doctor Table -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Doctor Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>DoctorID</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Specialty</th>
+                    </tr>
+                    <tr><td>D001</td><td>James</td><td>Adams</td><td>Cardiology</td></tr>
+                    <tr><td>D002</td><td>Darren</td><td>Brown</td><td>Neurology</td></tr>
+                    <tr><td>D003</td><td>Philip</td><td>Clark</td><td>Dermatology</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <!-- ✅ Appointment Table -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Appointment Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>AppointmentID</th>
+                        <th>PatientID</th>
+                        <th>DoctorID</th>
+                        <th>AppointmentDate</th>
+                        <th>AppointmentTime</th>
+                    </tr>
+                    <tr><td>A100</td><td>001</td><td>D001</td><td>2024-06-10</td><td>10:30 AM</td></tr>
+                    <tr><td>A101</td><td>002</td><td>D002</td><td>2024-06-12</td><td>11:00 AM</td></tr>
+                    <tr><td>A102</td><td>003</td><td>D003</td><td>2024-06-14</td><td>12:00 PM</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <!-- ✅ Medications Table -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Medications Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>AppointmentID</th>
+                        <th>MedicationName</th>
+                    </tr>
+                    <tr><td>A100</td><td>Aspirin</td></tr>
+                    <tr><td>A101</td><td>Ibuprofen</td></tr>
+                    <tr><td>A102</td><td>Hydrocortisone</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <!-- ✅ Diagnosis Table -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Diagnosis Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>AppointmentID</th>
+                        <th>DiagnosisDetails</th>
+                    </tr>
+                    <tr><td>A100</td><td>Hypertension</td></tr>
+                    <tr><td>A101</td><td>Migraine</td></tr>
+                    <tr><td>A102</td><td>Eczema</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <!-- ✅ Insurance Table -->
+        
+        <div class="table-wrapper">
+            <div class="table-container">
+                <h3 class="table-title">Insurance Table</h3>
+                <table border="1">
+                    <tr class="table-header-final">
+                        <th>PlanID</th>
+                        <th>PlanName</th>
+                        <th>CoverageDetails</th>
+                    </tr>
+                    <tr><td>P01</td><td>Plan A</td><td>Full Coverage</td></tr>
+                    <tr><td>P02</td><td>Plan B</td><td>Partial Coverage</td></tr>
+                    <tr><td>P03</td><td>Plan C</td><td>Basic Coverage</td></tr>
+                </table>
+            </div>
+        </div>
+    
+        <h3>Key Takeaways:</h3>
+        <ul class="summary-list">
+            <li>✅ **1NF:** Removed repeating groups & ensured atomicity.</li>
+            <li>✅ **2NF:** Eliminated partial dependencies (data now fully depends on the primary key).</li>
+            <li>✅ **3NF:** Removed transitive dependencies, ensuring cleaner relationships.</li>
+            <li>Final Result: A fully optimised 3NF database with minimal redundancy & efficient querying!</li>
+        </ul>
+    
+        </div>
+    </div>
+    
+
+
+    <button onclick="goToNext()">Next</button>
+
+    <script>
+        // ✅ Initialize Mermaid Diagrams
+        mermaid.initialize({ startOnLoad: false });
+
+        /* ------------------------------------------------ */
+        /* ✅ Helper Functions (For Highlighting & Rendering) */
+        /* ------------------------------------------------ */
+
+        // ✅ Reset Mermaid Diagrams
+        function resetMermaid(selector) {
+            setTimeout(() => {
+                document.querySelectorAll(selector).forEach(el => el.removeAttribute("data-processed"));
+                mermaid.init(undefined, document.querySelector(selector));
+            }, 50);
+        }
+
+        // ✅ Highlight Cell Changes
+        function highlightChanges(rowIndex, colIndex, highlightClass = "highlight-cell") {
+            let table = document.getElementById("unf-table");
+            let cell = table.rows[rowIndex]?.cells[colIndex];
+
+            if (cell) {
+                cell.classList.add(highlightClass);
+                setTimeout(() => {
+                    cell.classList.remove(highlightClass);
+                }, 3000);
+            }
+        }
+
+        function fixAtomicity() {
+            console.log("Fixing Atomicity...");
+            
+            let tablesBefore = {
+                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan"],
+                "Doctor": ["DoctorID", "DoctorName", "Specialty"]
+            };
+        
+            let tablesAfter = {
+                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"],
+                "Doctor": ["DoctorID", "FirstName", "LastName", "Specialty"]
+            };
+        
+            let sampleDataBefore = {
+                "Patient": [
+                    ["001", "<span class='error-text'>John Smith</span>", "1990-03-25", "34", "Plan A"],
+                    ["002", "<span class='error-text'>Jane Doe</span>", "1985-08-17", "39", "Plan B"],
+                    ["003", "<span class='error-text'>Michael Johnson</span>", "1995-01-30", "29", "Plan C"]
+                ],
+                "Doctor": [
+                    ["D001", "<span class='error-text'>Dr. Adams</span>", "Cardiology"],
+                    ["D002", "<span class='error-text'>Dr. Brown</span>", "Neurology"],
+                    ["D003", "<span class='error-text'>Dr. Clark</span>", "Dermatology"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Patient": [
+                    ["001", "<span class='fix-text'>John</span>", "<span class='fix-text'>Smith</span>", "1990-03-25", "34", "Plan A"],
+                    ["002", "<span class='fix-text'>Jane</span>", "<span class='fix-text'>Doe</span>", "1985-08-17", "39", "Plan B"],
+                    ["003", "<span class='fix-text'>Michael</span>", "<span class='fix-text'>Johnson</span>", "1995-01-30", "29", "Plan C"]
+                ],
+                "Doctor": [
+                    ["D001", "<span class='fix-text'>James</span>", "<span class='fix-text'>Adams</span>", "Cardiology"],
+                    ["D002", "<span class='fix-text'>Darren</span>", "<span class='fix-text'>Brown</span>", "Neurology"],
+                    ["D003", "<span class='fix-text'>Philip</span>", "<span class='fix-text'>Clark</span>", "Dermatology"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Patient Name</span> & <span class='error-text'>Doctor Name</span> are stored as full names, breaking **Atomicity**.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-1nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We split names into <span class='fix-text'>First Name</span> and <span class='fix-text'>Last Name</span>.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-1nf-step1";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-atomicity").innerHTML = outputHTML;
+        }
+        
+        
+        
+        function fixRepeatingGroups() {
+            console.log("Fixing Repeating Groups...");
+        
+            let tablesBefore = {
+                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan", "Medication", "Diagnosis"]
+            };
+        
+            let tablesAfter = {
+                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan"],
+                "Medications": ["PatientID", "MedicationName"],
+                "Diagnosis": ["PatientID", "DiagnosisDetails"]
+            };
+        
+            let sampleDataBefore = {
+                "Patient": [
+                    ["001", "John Smith", "1990-03-25", "34", "Plan A", "<span class='error-text'>Aspirin</span>", "<span class='error-text'>Hypertension</span>"],
+                    ["002", "Jane Doe", "1985-08-17", "39", "Plan B", "<span class='error-text'>Ibuprofen</span>", "<span class='error-text'>Migraine</span>"],
+                    ["003", "Michael Johnson", "1995-01-30", "29", "Plan C", "<span class='error-text'>Hydrocortisone</span>", "<span class='error-text'>Eczema</span>"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Patient": [
+                    ["001", "John Smith", "1990-03-25", "34", "Plan A"],
+                    ["002", "Jane Doe", "1985-08-17", "39", "Plan B"],
+                    ["003", "Michael Johnson", "1995-01-30", "29", "Plan C"]
+                ],
+                "Medications": [
+                    ["001", "<span class='fix-text'>Aspirin</span>"],
+                    ["002", "<span class='fix-text'>Ibuprofen</span>"],
+                    ["003", "<span class='fix-text'>Hydrocortisone</span>"]
+                ],
+                "Diagnosis": [
+                    ["001", "<span class='fix-text'>Hypertension</span>"],
+                    ["002", "<span class='fix-text'>Migraine</span>"],
+                    ["003", "<span class='fix-text'>Eczema</span>"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Medications</span> and <span class='error-text'>Diagnosis</span> were **stored in the Patient table**, leading to **data redundancy**.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-1nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We **moved** <span class='fix-text'>Medications</span> and <span class='fix-text'>Diagnosis</span> into **separate tables**, ensuring each patient record **stores only their ID**.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-1nf-step2";  
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-repeating-groups").innerHTML = outputHTML;
+        }
+        
+        
+        function fixDerivedAttributes() {
+            console.log("Removing Derived Attributes...");
+        
+            let tablesBefore = {
+                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"]
+            };
+        
+            let tablesAfter = {
+                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "InsurancePlan"]
+            };
+        
+            let sampleDataBefore = {
+                "Patient": [
+                    ["001", "John", "Smith", "1990-03-25", "<span class='error-text'>34</span>", "Plan A"],
+                    ["002", "Jane", "Doe", "1985-08-17", "<span class='error-text'>39</span>", "Plan B"],
+                    ["003", "Michael", "Johnson", "1995-01-30", "<span class='error-text'>29</span>", "Plan C"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Patient": [
+                    ["001", "John", "Smith", "<span class='fix-text'>1990-03-25</span>", "Plan A"],
+                    ["002", "Jane", "Doe", "<span class='fix-text'>1985-08-17</span>", "Plan B"],
+                    ["003", "Michael", "Johnson", "<span class='fix-text'>1995-01-30</span>", "Plan C"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Age</span> is a **derived attribute** (it can be calculated from DOB), violating **2NF**.
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-2nf-step1"; // ✅ Correct header highlight for Before Fix
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`; // ✅ Apply header highlight
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+        
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We **removed** <span class='fix-text'>Age</span> since it can be **calculated from DOB**, ensuring the database follows **2NF**.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-2nf-step1"; // ✅ Correct header highlight for After Fix
+                
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`; // ✅ Apply header highlight
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-derived-attributes").innerHTML = outputHTML;
+        }
+        
+        
+        
+        
+        function fixPartialDependencies() {
+            console.log("Fixing Partial Dependencies...");
+        
+            let tablesBefore = {
+                "Appointment": ["AppointmentID", "PatientID", "DoctorID", "DoctorName", "Specialty", "AppointmentDate", "AppointmentTime"]
+            };
+        
+            let tablesAfter = {
+                "Doctor": ["DoctorID", "FirstName", "LastName", "Specialty"],
+                "Appointment": ["AppointmentID", "PatientID", "DoctorID", "AppointmentDate", "AppointmentTime"]
+            };
+        
+            let sampleDataBefore = {
+                "Appointment": [
+                    ["A100", "001", "D001", "<span class='error-text'>Dr. Adams</span>", "<span class='error-text'>Cardiology</span>", "2024-06-10", "10:30 AM"],
+                    ["A101", "002", "D002", "<span class='error-text'>Dr. Brown</span>", "<span class='error-text'>Neurology</span>", "2024-06-12", "11:00 AM"],
+                    ["A102", "003", "D003", "<span class='error-text'>Dr. Clark</span>", "<span class='error-text'>Dermatology</span>", "2024-06-14", "12:00 PM"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Doctor": [
+                    ["D001", "James", "Adams", "<span class='fix-text'>Cardiology</span>"],
+                    ["D002", "Darren", "Brown", "<span class='fix-text'>Neurology</span>"],
+                    ["D003", "Philip", "Clark", "<span class='fix-text'>Dermatology</span>"]
+                ],
+                "Appointment": [
+                    ["A100", "001", "D001", "2024-06-10", "10:30 AM"],
+                    ["A101", "002", "D002", "2024-06-12", "11:00 AM"],
+                    ["A102", "003", "D003", "2024-06-14", "12:00 PM"]
+                ]
+            };
+        
+            // ✅ Before Fix Feedback Box
+            let beforeFixHTML = `
+                <div class="feedback-box error-feedback">
+                    ✅ <strong>Problem:</strong> The <span class='error-text'>Doctor's Specialty</span> was stored in the <strong>Appointment</strong> table, causing **duplicate data** across multiple records.
+                </div>
+            `;
+        
+            let outputHTML = beforeFixHTML + `<h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="table-header-2nf-step2">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+        
+            // ✅ After Fix Feedback Box
+            let afterFixHTML = `
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We moved <span class='fix-text'>Specialty</span> to the <strong>Doctor</strong> table, ensuring it is stored **only once per doctor**.
+                </div>
+            `;
+        
+            outputHTML += afterFixHTML + `<h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="table-header-2nf-step2">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+        
+            document.getElementById("after-partial-dependency").innerHTML = outputHTML;
+            document.getElementById("partial-dependency-feedback").innerHTML = "✅ Partial Dependencies Removed (Highlighted in Blue 🔵).";
+        }
+        
+        
+        
+        function fixTransitiveDependencies() {
+            console.log("Fixing Transitive Dependencies...");
+        
+            let tablesBefore = {
+                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "InsurancePlan"]
+            };
+        
+            let tablesAfter = {
+                "Patient": ["PatientID", "FirstName", "LastName", "DOB"], 
+                "Insurance": ["PlanID", "PlanName", "CoverageDetails"] 
+            };
+        
+            let sampleDataBefore = {
+                "Patient": [
+                    ["001", "John", "Smith", "1990-03-25", "<span class='error-text'>Plan A</span>"],
+                    ["002", "Jane", "Doe", "1985-08-17", "<span class='error-text'>Plan B</span>"],
+                    ["003", "Michael", "Johnson", "1995-01-30", "<span class='error-text'>Plan C</span>"]
+                ]
+            };
+        
+            let sampleDataAfter = {
+                "Patient": [
+                    ["001", "John", "Smith", "1990-03-25"],
+                    ["002", "Jane", "Doe", "1985-08-17"],
+                    ["003", "Michael", "Johnson", "1995-01-30"]
+                ],
+                "Insurance": [
+                    ["P01", "<span class='fix-text'>Plan A</span>", "Full Coverage"],
+                    ["P02", "<span class='fix-text'>Plan B</span>", "Partial Coverage"],
+                    ["P03", "<span class='fix-text'>Plan C</span>", "Basic Coverage"]
+                ]
+            };
+        
+            let outputHTML = `
+                <div class="feedback-box error-feedback">
+                    ❌ <strong>Problem:</strong> <span class='error-text'>InsurancePlan</span> was stored in the <strong>Patient</strong> table, creating a **transitive dependency** (patients depend on insurance details, which depend on insurance companies).
+                </div>
+        
+                <h3 class="before-after-label">Before Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesBefore).forEach(table => {
+                let headerClass = "table-header-3nf-step1"; 
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesBefore[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataBefore[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>
+                
+                <div class="feedback-box fix-feedback">
+                    ✅ <strong>Fix:</strong> We **moved** <span class='fix-text'>InsurancePlan</span> to a new <strong>Insurance</strong> table, ensuring proper **3NF** by eliminating the transitive dependency.
+                </div>
+        
+                <h3 class="before-after-label">After Fix:</h3>
+                <div class="table-wrapper"><div class="table-container">`;
+        
+            Object.keys(tablesAfter).forEach(table => {
+                let headerClass = "table-header-3nf-step1"; 
+        
+                outputHTML += `<h3 class="table-title">${table} Table</h3>
+                <table border="1">
+                <tr class="${headerClass}">`;
+        
+                tablesAfter[table].forEach(attr => {
+                    outputHTML += `<th>${attr}</th>`;
+                });
+        
+                outputHTML += `</tr>`;
+        
+                sampleDataAfter[table].forEach(row => {
+                    outputHTML += `<tr>`;
+                    row.forEach(cell => {
+                        outputHTML += `<td>${cell}</td>`;
+                    });
+                    outputHTML += `</tr>`;
+                });
+        
+                outputHTML += `</table><br>`;
+            });
+        
+            outputHTML += `</div></div>`;
+            document.getElementById("after-transitive-dependency").innerHTML = outputHTML;
+        }
+        
+        
+        
+         
+        /* ------------------------------------------------ */
+        /* ✅ Event Listeners */
+        /* ------------------------------------------------ */
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("btn-fix-atomicity").addEventListener("click", fixAtomicity);
+            document.getElementById("btn-fix-repeating-groups").addEventListener("click", fixRepeatingGroups);
+            document.getElementById("btn-fix-derived-attributes").addEventListener("click", fixDerivedAttributes);
+            document.getElementById("btn-fix-partial-dependency").addEventListener("click", fixPartialDependencies);
+            document.getElementById("btn-fix-transitive-dependency").addEventListener("click", fixTransitiveDependencies);
+         
+            
+        });
+
+
+
+
+        function goToNext() {
+            window.location.href = "UniTest.html";
+        }           
+    </script>
+
+
+</body>
+
+</html>

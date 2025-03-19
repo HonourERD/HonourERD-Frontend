@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HonourERD Quiz</title>
+    <link rel="icon" type="image/x-icon" href="./Images/favicon-16x16.png">
+    <title>Login - HonourERD</title>
     <link rel="stylesheet" href="./NewSystem.css">
     <style>
         body {
@@ -58,13 +59,17 @@
             font-size: 20px;
             margin-top: 30px;
         }
+        footer{
+            background-color: #373738;
+            color: #f4f4f4;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="logo-container">
-        <img  id="logo"  src="./Images/HonourERD.png">
+        <img  id="logo"  src="./Images/HonourERD (1).png">
 
     </div>
 
@@ -78,6 +83,7 @@
         <p class="text-instructions">💡You can find your unique identifier on the consent form you were given, or the card given to you by the lead researcher</p>
     </div>
 
+ 
     <script>
 
         function login() {
@@ -88,7 +94,7 @@
                 return;
             }
 
-            // send identifier to flask
+           //send identifier code to backend
             fetch("https://honourerd-backend.onrender.com/login", {  
 
                 method: "POST",
@@ -101,7 +107,7 @@
                     if (data.success) {
                         console.log("✅ Login successful! Redirecting...");
                         localStorage.setItem("userID", userIdentifier); // store it for quiz
-                        window.location.href = "Welcome.html"; // redirect to honourERD
+                        window.location.href = "Welcome.html"; 
                     } else {
                         alert("❌ Login failed. Please try again.");
                     }
