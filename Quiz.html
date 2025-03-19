@@ -483,25 +483,19 @@
         
             let payload = {
                 user_identifier: participantID,
-                answers: userAnswers
+                answers: userAnswers  // {"1":1, "2":0, "3":1, ...}
             };
         
-            console.log("📤 Sending Data to Flask:", payload);  // ✅ Debugging
+            console.log("📤 Sending Data to Flask:", payload);
         
             fetch("https://honourerd-backend.onrender.com/submit-score", { 
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
             .then(response => response.json())
-            .then(data => {
-                console.log("📥 Response from server:", data);  // ✅ Debugging
-            })
-            .catch(error => {
-                console.error("❌ ERROR submitting score:", error);  // ✅ Debugging
-            });
+            .then(data => console.log("📥 Response from server:", data))
+            .catch(error => console.error("❌ ERROR submitting score:", error));
         }
         
         
