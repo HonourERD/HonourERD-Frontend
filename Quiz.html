@@ -400,14 +400,14 @@
             const questionData = questions[currentQuestionIndex];
             const isCorrect = questionData.tables[selectedTableIndex].correct;
         
-            // ✅ Store answer in JSON format: { "1": 1, "2": 0, "3": 1, ... }
+     
             userAnswers[currentQuestionIndex + 1] = isCorrect ? 1 : 0;
         
-            // 🛠 Debugging logs to check stored answers
+     
             console.log(`📌 Question ${currentQuestionIndex + 1} answered:`, isCorrect ? "✅ Correct" : "❌ Incorrect");
             console.log("📊 Current Answers:", userAnswers);
         
-            // ✅ Add feedback
+     
             if (isCorrect) {
                 feedbackDiv.innerHTML = "✅ <strong>Correct!</strong>";
                 feedbackDiv.classList.remove("incorrect");
@@ -418,12 +418,11 @@
                 feedbackDiv.classList.add("incorrect");
             }
         
-            // ✅ Show feedback
+          
             feedbackDiv.style.opacity = "1";
             feedbackDiv.style.transform = "translateY(0px)";
             feedbackDiv.style.display = "inline-block";
-        
-            // ✅ Disable submit, enable next
+       
             submitButton.disabled = true;
             nextButton.disabled = false;
         });
@@ -466,24 +465,26 @@
                 nextButton.disabled = true;
                 submitButton.disabled = true;
         
+                // ✅ Send answers to Flask
+                submitAnswersToFlask();
+        
                 // ✅ Debug log to make sure score is right
                 console.log(`🏆 FINAL SCORE: ${finalScore}/${questions.length}`);
             }
         });
         
-
         function submitAnswersToFlask() {
-            let participantID = localStorage.getItem("userID"); 
+            let participantID = localStorage.getItem("userID");
         
             if (!participantID) {
-                console.error("❌ ERROR: No participant ID found!");
+                console.error("❌ ERROR: No participant ID found in localStorage!");
                 alert("Error: No user ID found. Please log in.");
                 return;
             }
         
             let payload = {
                 user_identifier: participantID,
-                answers: userAnswers  // {"1":1, "2":0, "3":1, ...}
+                answers: userAnswers  
             };
         
             console.log("📤 Sending Data to Flask:", payload);
@@ -494,12 +495,15 @@
                 body: JSON.stringify(payload)
             })
             .then(response => response.json())
-            .then(data => console.log("📥 Response from server:", data))
+            .then(data => {
+                console.log("📥 Response from server:", data);
+                if (!data.success) {
+                    console.error("❌ Flask Error:", data.message);
+                }
+            })
             .catch(error => console.error("❌ ERROR submitting score:", error));
         }
         
-        
-      
         
 
     </script>
