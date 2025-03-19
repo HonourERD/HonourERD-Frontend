@@ -473,7 +473,7 @@
         
 
         function submitAnswersToFlask() {
-            let participantID = localStorage.getItem("userID"); // Get user ID
+            let participantID = localStorage.getItem("userID"); 
         
             if (!participantID) {
                 console.error("❌ ERROR: No participant ID found!");
@@ -481,23 +481,28 @@
                 return;
             }
         
-            fetch("https://your-flask-backend.com/submit-score", {  
+            fetch("https://honourerd-backend.onrender.com/submit-score", { 
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    user_identifier: participantID,  
-                    answers: userAnswers  
+                    user_identifier: participantID,
+                    answers: userAnswers
                 })
             })
             .then(response => response.json())
-            .then(data => console.log("📌 Response from server:", data))  // ✅ Log response
-            .catch(error => console.error("❌ Error submitting score:", error));
+            .then(data => {
+                console.log("📤 Server Response:", data);  // ✅ Check what the server replies with
+            })
+            .catch(error => {
+                console.error("❌ ERROR sending data to Flask:", error);  // ✅ Catch any fetch errors
+            });
+            
             
         }
         
-        
+      
         
 
     </script>
