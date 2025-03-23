@@ -1,6 +1,4 @@
-/* ============================================================= */
-/* ✅ GENERAL PAGE STYLING */
-/* ============================================================= */
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -14,9 +12,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* ============================================================= */
-/* ✅ SCENARIO STYLING (Intro Section) */
-/* ============================================================= */
+
 .scenario-container {
     background: #faf6d8;
     border: 2px solid #000000;
@@ -47,9 +43,7 @@ h1 {
     margin-bottom: 10px;
     min-height: 250px;
 }
-/* ============================================================= */
-/* ✅ STEP CONTAINERS (1NF, 2NF, 3NF Sections) */
-/* ============================================================= */
+
 .step-container {
     background-color: #fdf7d9;
     border: 1px solid #d1c6a5;
@@ -60,9 +54,7 @@ h1 {
     margin: 20px auto;
 }
 
-/* ============================================================= */
-/* ✅ SUBPROCESS BOXES (Each Step Inside 1NF, 2NF, 3NF) */
-/* ============================================================= */
+
 .subprocess-box1 {
     background-color: white;
     border: 2px solid #0c0900;
@@ -73,47 +65,42 @@ h1 {
     max-width: 900px;
     box-sizing: border-box;
 }
-/* ✅ Reduce space between Before/After Fix sections */
+
 .before-after-label {
-    margin: 10px 0 5px 0; /* Reduce space above/below */
+    margin: 10px 0 5px 0; 
     font-size: 16px;
     font-weight: bold;
 }
 
-/* ✅ Keep feedback boxes closer to tables */
 .feedback-box {
-    margin-bottom: 5px; /* Reduce excessive space */
-    padding: 6px 10px; /* Keep text readable */
+    margin-bottom: 5px; 
+    padding: 6px 10px; 
 }
 
-/* ✅ Fix step sections spacing */
+
 .step-container {
-    margin-bottom: 15px; /* Keep sections tighter */
+    margin-bottom: 15px; 
 }
 
-/* ✅ Reduce table spacing */
+
 .table-wrapper {
-    margin-bottom: 8px; /* Reduce space between tables */
+    margin-bottom: 8px; 
 }
 
-/* ✅ Ensure Before/After Fix headers align properly */
+
 h3.before-after-label {
     text-align: center;
-    margin: 5px 0; /* Reduce top margin */
+    margin: 5px 0; 
     font-size: 18px;
     font-weight: bold;
 }
 
-/* ✅ Fix spacing around buttons */
+
 button {
-    margin: 8px; /* Reduce button spacing */
+    margin: 8px; 
 }
 
 
-/* ============================================================= */
-/* ✅ FEEDBACK BOXES (For Fix Messages) */
-/* ============================================================= */
-/* ✅ Problem Feedback Box (Before Fix) */
 .feedback-box.error-feedback {
     border-left: 4px solid red;
     background: #ffe5e5;
@@ -124,7 +111,7 @@ button {
     max-width: 800px;
 }
 
-/* ✅ Fix Feedback Box (After Fix) */
+
 .feedback-box.fix-feedback {
     border-left: 4px solid green;
     background: #e5ffe5;
@@ -135,7 +122,7 @@ button {
     max-width: 800px;
 }
 
-/* ✅ Problem Text */
+
 .error-text {
     color: red;
     font-weight: bold;
@@ -145,7 +132,7 @@ button {
     display: inline-block;
 }
 
-/* ✅ Fix Text */
+
 .fix-text {
     color: green;
     font-weight: bold;
@@ -155,9 +142,7 @@ button {
     display: inline-block;
 }
 
-/* ============================================================= */
-/* ✅ TABLE STYLING (Fixes Layout Issues) */
-/* ============================================================= */
+
 .table-wrapper {
     width: 100%;
     max-width: 100%;
@@ -167,7 +152,7 @@ button {
     justify-content: center;
 }
 
-/* ✅ Fix Table Layout */
+
 .table-container {
     display: block;
     width: 100%;
@@ -176,14 +161,13 @@ button {
     box-sizing: border-box;
 }
 
-/* ✅ Fix Table Header Colors */
-.table-header-1nf-step1 { background-color: #DAD89B; }
+
+.table-header-1nf-step1 { background-color: #e8d2b0; }
 .table-header-1nf-step2 { background-color: #DEB475; }
 .table-header-2nf-step1 { background-color: #CD8B6F; }
 .table-header-2nf-step2 { background-color: #876575; }
-.table-header-3nf-step1 { background-color: #60566e; }
+.table-header-3nf-step1 { background-color: #7c6c93; }
 
-/* ✅ Fix Headers & Cells */
 .table-container table {
     border-collapse: collapse;
     width: 100%;
@@ -201,14 +185,12 @@ button {
     overflow: hidden;
 }
 
-/* ✅ Allow Text Wrapping for Table Body */
+
 .table-container td {
     white-space: normal;
 }
 
-/* ============================================================= */
-/* ✅ BUTTON STYLING */
-/* ============================================================= */
+
 button {
     background: #007bff;
     color: white;
@@ -224,9 +206,7 @@ button:hover {
     background: #0056b3;
 }
 
-/* ============================================================= */
-/* ✅ MOBILE FIXES */
-/* ============================================================= */
+
 @media (max-width: 768px) {
     .table-wrapper {
         overflow-x: auto;
@@ -236,9 +216,7 @@ button:hover {
     }
 }
 
-/* ============================================================= */
-/* ✅ UNF TABLE STYLING (Fix Layout Issues) */
-/* ============================================================= */
+
 #unf-table-container {
     overflow-x: auto;
     width: 100%;
@@ -271,7 +249,7 @@ button:hover {
     text-align: center;
 }
 
-/* ✅ Ensure wide columns fit */
+
 #unf-table th:nth-child(8),
 #unf-table th:nth-child(9),
 #unf-table th:nth-child(11),
@@ -281,7 +259,7 @@ button:hover {
     white-space: normal;
 }
 
-/* ✅ Center align IDs, Dates, and Times */
+
 #unf-table td:nth-child(1),
 #unf-table td:nth-child(7),
 #unf-table td:nth-child(10),
@@ -289,19 +267,18 @@ button:hover {
 #unf-table td:nth-child(9) {
     text-align: center;
 }
-/* ✅ Ensure final summary section tables have a clean white background */
+
 #final-summary .table-container table {
-    background-color: white !important; /* ⬅ Force white background */
+    background-color: white !important; /* Force white background */
     border-collapse: collapse;
     width: 100%;
     table-layout: auto;
     word-wrap: break-word;
 }
 
-/* ✅ Ensure final summary table headers stand out */
+
 #final-summary .table-container th {
-    background-color: #70FF7E !important; /* ⬅ Light gray for better contrast */
-    color: black !important;
+    background-color: #87957c;
     font-weight: bold;
     border: 1px;
 }

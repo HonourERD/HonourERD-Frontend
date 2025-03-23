@@ -35,11 +35,11 @@
         </ul>
 
         <p class="solution-text">
-            Normalise the database step-by-step to fix these issues! (<strong>1NF → 2NF → 3NF</strong>).
+            Normalise the database step-by-step to fix these issues! (<strong>Unormalised Form → 1NF → 2NF → 3NF</strong>).
         </p>
 
         <p class="task-text">
-            Start at 1nf and follow through the steps of normalisation with HonourERD
+            Begin with the attributes in the Unormalised Form table and follow through the steps of normalisation with HonourERD
         </p>
     </div>
 
@@ -75,7 +75,7 @@
                         <td>2024-06-10</td>
                         <td>10:30 AM</td>
                         <td>D001</td>
-                        <td>Dr. Adams</td>
+                        <td>James Adams</td>
                         <td>Cardiology</td>
                         <td>Hypertension</td>
                         <td>Aspirin</td>
@@ -90,7 +90,7 @@
                         <td>2024-06-12</td>
                         <td>11:00 AM</td>
                         <td>D002</td>
-                        <td>Dr. Brown</td>
+                        <td>Darren Brown</td>
                         <td>Neurology</td>
                         <td>Migraine</td>
                         <td>Ibuprofen</td>
@@ -105,7 +105,7 @@
                         <td>2024-06-14</td>
                         <td>12:00 PM</td>
                         <td>D003</td>
-                        <td>Dr. Clark</td>
+                        <td>Philip Clark</td>
                         <td>Dermatology</td>
                         <td>Eczema</td>
                         <td>Hydrocortisone</td>
@@ -199,7 +199,7 @@
                 <h3 class="table-title">Patient Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>PatientID</th>
+                        <th>PatientID  <img src="./Images/icons8-key-16 (1).png"></th>
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>DOB</th>
@@ -218,7 +218,7 @@
                 <h3 class="table-title">Doctor Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>DoctorID</th>
+                        <th>DoctorID  <img src="./Images/icons8-key-16 (1).png"></th>
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Specialty</th>
@@ -236,9 +236,9 @@
                 <h3 class="table-title">Appointment Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>AppointmentID</th>
-                        <th>PatientID</th>
-                        <th>DoctorID</th>
+                        <th>AppointmentID  <img src="./Images/icons8-key-16 (1).png"></th>
+                        <th>PatientID  <img src="./Images/icons8-key-16.png"></th>
+                        <th>DoctorID  <img src="./Images/icons8-key-16.png"></th>
                         <th>AppointmentDate</th>
                         <th>AppointmentTime</th>
                     </tr>
@@ -255,7 +255,7 @@
                 <h3 class="table-title">Medications Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>AppointmentID</th>
+                        <th>AppointmentID  <img src="./Images/icons8-key-16 (1).png"></th>
                         <th>MedicationName</th>
                     </tr>
                     <tr><td>A100</td><td>Aspirin</td></tr>
@@ -271,7 +271,7 @@
                 <h3 class="table-title">Diagnosis Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>AppointmentID</th>
+                        <th>AppointmentID  <img src="./Images/icons8-key-16 (1).png"></th>
                         <th>DiagnosisDetails</th>
                     </tr>
                     <tr><td>A100</td><td>Hypertension</td></tr>
@@ -288,7 +288,7 @@
                 <h3 class="table-title">Insurance Table</h3>
                 <table border="1">
                     <tr class="table-header-final">
-                        <th>PlanID</th>
+                        <th>PlanID  <img src="./Images/icons8-key-16 (1).png"></th>
                         <th>PlanName</th>
                         <th>CoverageDetails</th>
                     </tr>
@@ -347,39 +347,32 @@
             console.log("Fixing Atomicity...");
             
             let tablesBefore = {
-                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan"],
-                "Doctor": ["DoctorID", "DoctorName", "Specialty"]
+                "AtomBefore": ["PatientID", "PatentName", "DOB", "Age", "InsurancePlan","AppointmentID", "AppointmentDate", "AppointmentTime", "DoctorID", "DoctorName", "Specialty", "DiagnosisDetails", "PrescribedMedications" ],
+              
             };
         
             let tablesAfter = {
-                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"],
-                "Doctor": ["DoctorID", "FirstName", "LastName", "Specialty"]
+                "AtomAfter": ["PatientID", "FirstName", "LastName", "DOB", "Age", "InsurancePlan","AppointmentID", "AppointmentDate", "AppointmentTime", "DoctorID", "FirstName", "LastName", "Specialty", "DiagnosisDetails", "PrescribedMedications" ],
+               
             };
         
             let sampleDataBefore = {
-                "Patient": [
-                    ["001", "<span class='error-text'>John Smith</span>", "1990-03-25", "34", "Plan A"],
-                    ["002", "<span class='error-text'>Jane Doe</span>", "1985-08-17", "39", "Plan B"],
-                    ["003", "<span class='error-text'>Michael Johnson</span>", "1995-01-30", "29", "Plan C"]
+                "AtomBefore": [
+                    ["001", "<span class='error-text'>John Smith</span>", "1990-03-25", "34", "Plan A", "A100", "2024-06-10", "10.30 AM", "D001", "<span class='error-text'>James Adams</span>", "Cardiology", "Hypertension", "Asprin"],
+                    ["002", "<span class='error-text'>Jane Doe</span>", "1985-08-17", "39", "Plan B", "A101", "2024-06-12", "11:00 AM", "D002", "<span class='error-text'>Darren Brown</span>", "Neurology", "Migraine", "Ibuprofen"],
+                    ["003", "<span class='error-text'>Michael Johnson</span>", "1995-01-30", "29", "Plan C", "A102", "2024-06-14", "12:00 PM", "D003", "<span class='error-text'>Philip Clark</span>", "Dermatology", "Eczema", "Hydrocortisone"]
                 ],
-                "Doctor": [
-                    ["D001", "<span class='error-text'>Dr. Adams</span>", "Cardiology"],
-                    ["D002", "<span class='error-text'>Dr. Brown</span>", "Neurology"],
-                    ["D003", "<span class='error-text'>Dr. Clark</span>", "Dermatology"]
-                ]
+
+            
             };
         
             let sampleDataAfter = {
-                "Patient": [
-                    ["001", "<span class='fix-text'>John</span>", "<span class='fix-text'>Smith</span>", "1990-03-25", "34", "Plan A"],
-                    ["002", "<span class='fix-text'>Jane</span>", "<span class='fix-text'>Doe</span>", "1985-08-17", "39", "Plan B"],
-                    ["003", "<span class='fix-text'>Michael</span>", "<span class='fix-text'>Johnson</span>", "1995-01-30", "29", "Plan C"]
+                "AtomAfter": [
+                    ["001", "<span class='fix-text'>John</span>", "<span class='fix-text'>Smith</span>", "1990-03-25", "34", "Plan A", "A100", "2024-06-10", "10:30 AM", "D001", "<span class='fix-text'>James</span>", "<span class='fix-text'>Adams</span>", "Cardiology", "Hypertension", "Asprin"],
+                    ["002", "<span class='fix-text'>Jane</span>", "<span class='fix-text'>Doe</span>", "1985-08-17", "39", "Plan B", "A101", "2024-06-12", "11:00 AM", "D002", "<span class='fix-text'>Darren</span>", "<span class='fix-text'>Brown</span>", "Neurology", "Migraine", "Ibuprofen"],
+                    ["003", "<span class='fix-text'>Michael</span>", "<span class='fix-text'>Johnson</span>", "1995-01-30", "29", "Plan C", "A102", "2024-06-14", "12:00 PM", "D003", "<span class='fix-text'>Philip</span>", "<span class='fix-text'>Clark</span>", "Dermatology", "Eczema", "Hydrocortisone"]
                 ],
-                "Doctor": [
-                    ["D001", "<span class='fix-text'>James</span>", "<span class='fix-text'>Adams</span>", "Cardiology"],
-                    ["D002", "<span class='fix-text'>Darren</span>", "<span class='fix-text'>Brown</span>", "Neurology"],
-                    ["D003", "<span class='fix-text'>Philip</span>", "<span class='fix-text'>Clark</span>", "Dermatology"]
-                ]
+          
             };
         
             let outputHTML = `
@@ -457,38 +450,38 @@
             console.log("Fixing Repeating Groups...");
         
             let tablesBefore = {
-                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan", "Medication", "Diagnosis"]
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB", "Age", "InsurancePlan", "Medication", "Diagnosis"]
             };
         
             let tablesAfter = {
-                "Patient": ["PatientID", "PatientName", "DOB", "Age", "InsurancePlan"],
-                "Medications": ["PatientID", "MedicationName"],
-                "Diagnosis": ["PatientID", "DiagnosisDetails"]
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"],
+                "Medications": ["MedicationID (PK)", "PatientID (FK)", "MedicationName"],
+                "Diagnosis": ["DiagnosisID (PK)", "PatientID (FK)", "DiagnosisDetails"]
             };
         
             let sampleDataBefore = {
                 "Patient": [
-                    ["001", "John Smith", "1990-03-25", "34", "Plan A", "<span class='error-text'>Aspirin</span>", "<span class='error-text'>Hypertension</span>"],
-                    ["002", "Jane Doe", "1985-08-17", "39", "Plan B", "<span class='error-text'>Ibuprofen</span>", "<span class='error-text'>Migraine</span>"],
-                    ["003", "Michael Johnson", "1995-01-30", "29", "Plan C", "<span class='error-text'>Hydrocortisone</span>", "<span class='error-text'>Eczema</span>"]
+                    ["001", "John", "Smith", "1990-03-25", "34", "Plan A", "<span class='error-text'>Aspirin</span>", "<span class='error-text'>Hypertension</span>"],
+                    ["002", "Jane", "Doe", "1985-08-17", "39", "Plan B", "<span class='error-text'>Ibuprofen</span>", "<span class='error-text'>Migraine</span>"],
+                    ["003", "Michael", "Johnson", "1995-01-30", "29", "Plan C", "<span class='error-text'>Hydrocortisone</span>", "<span class='error-text'>Eczema</span>"]
                 ]
             };
         
             let sampleDataAfter = {
                 "Patient": [
-                    ["001", "John Smith", "1990-03-25", "34", "Plan A"],
-                    ["002", "Jane Doe", "1985-08-17", "39", "Plan B"],
-                    ["003", "Michael Johnson", "1995-01-30", "29", "Plan C"]
+                    ["001", "John", "Smith", "1990-03-25", "34", "Plan A"],
+                    ["002", "Jane", "Doe", "1985-08-17", "39", "Plan B"],
+                    ["003", "Michael", "Johnson", "1995-01-30", "29", "Plan C"]
                 ],
                 "Medications": [
-                    ["001", "<span class='fix-text'>Aspirin</span>"],
-                    ["002", "<span class='fix-text'>Ibuprofen</span>"],
-                    ["003", "<span class='fix-text'>Hydrocortisone</span>"]
+                    ["M001", "001", "<span class='fix-text'>Aspirin</span>"],
+                    ["M002","002", "<span class='fix-text'>Ibuprofen</span>"],
+                    ["M003", "003", "<span class='fix-text'>Hydrocortisone</span>"]
                 ],
                 "Diagnosis": [
-                    ["001", "<span class='fix-text'>Hypertension</span>"],
-                    ["002", "<span class='fix-text'>Migraine</span>"],
-                    ["003", "<span class='fix-text'>Eczema</span>"]
+                    ["D001", "001", "<span class='fix-text'>Hypertension</span>"],
+                    ["D002", "002", "<span class='fix-text'>Migraine</span>"],
+                    ["D003", "003", "<span class='fix-text'>Eczema</span>"]
                 ]
             };
         
@@ -507,9 +500,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -533,29 +528,33 @@
                 <h3 class="before-after-label">After Fix:</h3>
                 <div class="table-wrapper"><div class="table-container">`;
         
-            Object.keys(tablesAfter).forEach(table => {
-                let headerClass = "table-header-1nf-step2";  
-        
-                outputHTML += `<h3 class="table-title">${table} Table</h3>
-                <table border="1">
-                <tr class="${headerClass}">`;
-        
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
-        
-                outputHTML += `</tr>`;
-        
-                sampleDataAfter[table].forEach(row => {
-                    outputHTML += `<tr>`;
-                    row.forEach(cell => {
-                        outputHTML += `<td>${cell}</td>`;
+                    Object.keys(tablesAfter).forEach(table => {
+                        let headerClass = "table-header-1nf-step2";  
+                    
+                        outputHTML += `<h3 class="table-title">${table} Table</h3>
+                        <table border="1">
+                        <tr class="${headerClass}">`;
+                    
+                        // ✅ Apply the PK/FK logic correctly to all tables
+                        tablesAfter[table].forEach(attr => {
+                            let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                            let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                            outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                        });
+                    
+                        outputHTML += `</tr>`;
+                    
+                        sampleDataAfter[table].forEach(row => {
+                            outputHTML += `<tr>`;
+                            row.forEach(cell => {
+                                outputHTML += `<td>${cell}</td>`;
+                            });
+                            outputHTML += `</tr>`;
+                        });
+                    
+                        outputHTML += `</table><br>`;
                     });
-                    outputHTML += `</tr>`;
-                });
-        
-                outputHTML += `</table><br>`;
-            });
+                    
         
             outputHTML += `</div></div>`;
             document.getElementById("after-repeating-groups").innerHTML = outputHTML;
@@ -566,11 +565,11 @@
             console.log("Removing Derived Attributes...");
         
             let tablesBefore = {
-                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"]
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB", "Age", "InsurancePlan"]
             };
         
             let tablesAfter = {
-                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "InsurancePlan"]
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB", "InsurancePlan"]
             };
         
             let sampleDataBefore = {
@@ -604,9 +603,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`; // ✅ Apply header highlight
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -630,29 +631,32 @@
                 <h3 class="before-after-label">After Fix:</h3>
                 <div class="table-wrapper"><div class="table-container">`;
         
-            Object.keys(tablesAfter).forEach(table => {
-                let headerClass = "table-header-2nf-step1"; // ✅ Correct header highlight for After Fix
-                
-                outputHTML += `<h3 class="table-title">${table} Table</h3>
-                <table border="1">
-                <tr class="${headerClass}">`; // ✅ Apply header highlight
-        
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
-        
-                outputHTML += `</tr>`;
-        
-                sampleDataAfter[table].forEach(row => {
-                    outputHTML += `<tr>`;
-                    row.forEach(cell => {
-                        outputHTML += `<td>${cell}</td>`;
+                    Object.keys(tablesAfter).forEach(table => {
+                        let headerClass = "table-header-2nf-step1";
+                    
+                        outputHTML += `<h3 class="table-title">${table} Table</h3>
+                        <table border="1">
+                        <tr class="${headerClass}">`;
+                    
+                        tablesAfter[table].forEach(attr => {
+                            let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                            let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                            outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                        });
+                    
+                        outputHTML += `</tr>`;
+                    
+                        sampleDataAfter[table].forEach(row => {
+                            outputHTML += `<tr>`;
+                            row.forEach(cell => {
+                                outputHTML += `<td>${cell}</td>`;
+                            });
+                            outputHTML += `</tr>`;
+                        });
+                    
+                        outputHTML += `</table><br>`;
                     });
-                    outputHTML += `</tr>`;
-                });
-        
-                outputHTML += `</table><br>`;
-            });
+                    
         
             outputHTML += `</div></div>`;
             document.getElementById("after-derived-attributes").innerHTML = outputHTML;
@@ -665,19 +669,20 @@
             console.log("Fixing Partial Dependencies...");
         
             let tablesBefore = {
-                "Appointment": ["AppointmentID", "PatientID", "DoctorID", "DoctorName", "Specialty", "AppointmentDate", "AppointmentTime"]
+                "Appointment": ["AppointmentID (PK)", "PatientID (FK)", "DoctorID (FK)", "DoctorName", "Specialty", "AppointmentDate", "AppointmentTime"]
             };
         
             let tablesAfter = {
-                "Doctor": ["DoctorID", "FirstName", "LastName", "Specialty"],
-                "Appointment": ["AppointmentID", "PatientID", "DoctorID", "AppointmentDate", "AppointmentTime"]
+                "Doctor": ["DoctorID (PK)", "FirstName", "LastName", "Specialty"],
+                "Appointment": ["AppointmentID (PK)", "PatientID (FK)", "DoctorID (FK)", "AppointmentDate", "AppointmentTime"]
             };
         
             let sampleDataBefore = {
                 "Appointment": [
-                    ["A100", "001", "D001", "<span class='error-text'>Dr. Adams</span>", "<span class='error-text'>Cardiology</span>", "2024-06-10", "10:30 AM"],
-                    ["A101", "002", "D002", "<span class='error-text'>Dr. Brown</span>", "<span class='error-text'>Neurology</span>", "2024-06-12", "11:00 AM"],
-                    ["A102", "003", "D003", "<span class='error-text'>Dr. Clark</span>", "<span class='error-text'>Dermatology</span>", "2024-06-14", "12:00 PM"]
+                    ["A100", "001", "D001", "<span class='error-text'>Adams</span>", "<span class='error-text'>Cardiology</span>", "2024-06-10", "10:30 AM"],
+                    ["A101", "002", "D002", "<span class='error-text'>Brown</span>", "<span class='error-text'>Neurology</span>", "2024-06-12", "11:00 AM"],
+                    ["A102", "003", "D003", "<span class='error-text'>Clark</span>", "<span class='error-text'>Dermatology</span>", "2024-06-14", "12:00 PM"],
+                    ["A103", "001", "D001", "<span class='error-text'>Adams</span>", "<span class='error-text'>Cardiology</span>", "2024-06-19", "9:30 AM"]
                 ]
             };
         
@@ -690,14 +695,16 @@
                 "Appointment": [
                     ["A100", "001", "D001", "2024-06-10", "10:30 AM"],
                     ["A101", "002", "D002", "2024-06-12", "11:00 AM"],
-                    ["A102", "003", "D003", "2024-06-14", "12:00 PM"]
+                    ["A102", "003", "D003", "2024-06-14", "12:00 PM"],
+                    ["A103", "001", "D001", "2024-06-19", "9.30 AM"]
                 ]
             };
         
             // ✅ Before Fix Feedback Box
             let beforeFixHTML = `
                 <div class="feedback-box error-feedback">
-                    ✅ <strong>Problem:</strong> The <span class='error-text'>Doctor's Specialty</span> was stored in the <strong>Appointment</strong> table, causing **duplicate data** across multiple records.
+                    ✅ <strong>Problem:</strong> The <span class='error-text'>Doctor's Specialty</span> was stored in the <strong>Appointment</strong> table, causing **duplicate data** across multiple records. 
+                    <br> <br> <span class='error-text'>Doctor Specialty</span> is also only partially dependant upon the one of the tables foreign keys <strong>DoctorID.</strong> <br> <br> <span class='error-text'>Doctor Specialty</span> ➡️ <strong>Doctor</strong> and is not related to <strong>Patient Details</strong> or <strong>Appointment Details</strong>. 
                 </div>
             `;
         
@@ -709,9 +716,12 @@
                 <table border="1">
                 <tr class="table-header-2nf-step2">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+                    
         
                 outputHTML += `</tr>`;
         
@@ -731,7 +741,10 @@
             // ✅ After Fix Feedback Box
             let afterFixHTML = `
                 <div class="feedback-box fix-feedback">
-                    ✅ <strong>Fix:</strong> We moved <span class='fix-text'>Specialty</span> to the <strong>Doctor</strong> table, ensuring it is stored **only once per doctor**.
+                    ✅ <strong>Fix:</strong> We moved <span class='fix-text'>Specialty</span> to the <strong>Doctor</strong> table, ensuring it is stored only once per doctor and to ensure that <strong>partial dependancy</strong> rules are maintained. <br> <br>
+                    The new tables now meet the rules for 2NF because: <br><br>
+                    <strong>Doctor</strong> table attributes only depend on the Primary Key DoctorID ➡️ FirstName, LastName, <span class='fix-text'>Specialty</span> <br><br>
+                    
                 </div>
             `;
         
@@ -743,9 +756,12 @@
                 <table border="1">
                 <tr class="table-header-2nf-step2">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+                    
         
                 outputHTML += `</tr>`;
         
@@ -772,12 +788,12 @@
             console.log("Fixing Transitive Dependencies...");
         
             let tablesBefore = {
-                "Patient": ["PatientID", "FirstName", "LastName", "DOB", "InsurancePlan"]
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB", "InsurancePlan"]
             };
         
             let tablesAfter = {
-                "Patient": ["PatientID", "FirstName", "LastName", "DOB"], 
-                "Insurance": ["PlanID", "PlanName", "CoverageDetails"] 
+                "Patient": ["PatientID (PK)", "FirstName", "LastName", "DOB"], 
+                "Insurance": ["PlanID (PK)", "PlanName", "CoverageDetails"] 
             };
         
             let sampleDataBefore = {
@@ -816,9 +832,12 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+                    
         
                 outputHTML += `</tr>`;
         
@@ -836,7 +855,15 @@
             outputHTML += `</div></div>
                 
                 <div class="feedback-box fix-feedback">
-                    ✅ <strong>Fix:</strong> We **moved** <span class='fix-text'>InsurancePlan</span> to a new <strong>Insurance</strong> table, ensuring proper **3NF** by eliminating the transitive dependency.
+                    ✅ <strong>Fix:</strong> We **moved** <span class='fix-text'>InsurancePlan</span> to a new <strong>Insurance</strong> table, ensuring proper **3NF** by eliminating the transitive dependency. <br><br>
+                   
+                    PatientID ➡️ FirstName, LastName, DOB<br><br>
+
+                  
+                    InsurancePlanID (PK) ➡️ PlanName, CoverageDetails <br><br>
+
+                    <strong>PatientInsurance (optional bridge if needed):</strong> <br><br>
+                    PatientID (FK), PlanID (FK)
                 </div>
         
                 <h3 class="before-after-label">After Fix:</h3>
@@ -849,9 +876,12 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+                    
         
                 outputHTML += `</tr>`;
         

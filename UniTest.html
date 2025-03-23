@@ -66,11 +66,11 @@
                         <td>21</td>
                         <td>CS101</td>
                         <td>Intro to Programming</td>
-                        <td>Prof. Johnson</td>
+                        <td>Mark Johnson</td>
                         <td>A</td>
                         <td>MATH201</td>
                         <td>Calculus I</td>
-                        <td>Prof. Williams</td>
+                        <td>Sarah Williams</td>
                         <td>B</td>
                     </tr>
                     <tr>
@@ -80,11 +80,11 @@
                         <td>22</td>
                         <td>HIST101</td>
                         <td>World History</td>
-                        <td>Prof. Davis</td>
+                        <td>Ian Davis</td>
                         <td>C</td>
                         <td>ENG101</td>
                         <td>English Comp</td>
-                        <td>Prof. Miller</td>
+                        <td>Danny Miller</td>
                         <td>A</td>
                     </tr>
                 </tbody>
@@ -158,7 +158,7 @@
                     <h3 class="table-title">Students Table</h3>
                     <table border="1">
                         <tr class="table-header-final">
-                            <th>StudentID</th>
+                            <th>StudentID <img src="./Images/icons8-key-16 (1).png"> </th>
                             <th>FirstName</th>
                             <th>LastName</th>
                             <th>DateOfBirth</th>
@@ -175,9 +175,9 @@
                     <h3 class="table-title">Courses Table</h3>
                     <table border="1">
                         <tr class="table-header-final">
-                            <th>CourseID</th>
+                            <th>CourseID <img src="./Images/icons8-key-16 (1).png"></th>
                             <th>CourseName</th>
-                            <th>InstructorID</th>
+                            <th>InstructorID <img src="./Images/icons8-key-16.png"> </th>
                         </tr>
                         <tr><td>CS101</td><td>Intro to Programming</td><td>I001</td></tr>
                         <tr><td>MATH201</td><td>Calculus I</td><td>I002</td></tr>
@@ -192,8 +192,8 @@
                     <h3 class="table-title">Enrollment Table</h3>
                     <table border="1">
                         <tr class="table-header-final">
-                            <th>StudentID</th>
-                            <th>CourseID</th>
+                            <th>StudentID <img src="./Images/icons8-key-16 (1).png"></th>
+                            <th>CourseID <img src="./Images/icons8-key-16.png"></th>
                             <th>Grade</th>
                         </tr>
                         <tr><td>101</td><td>CS101</td><td>A</td></tr>
@@ -210,13 +210,14 @@
                     <h3 class="table-title">Instructors Table</h3>
                     <table border="1">
                         <tr class="table-header-final">
-                            <th>InstructorID</th>
-                            <th>InstructorName</th>
+                            <th>InstructorID <img src="./Images/icons8-key-16 (1).png"></th>
+                            <th>InstructorFirstName</th>
+                            <th>InstructorLastName</th>
                             <th>InstructorOffice</th>
                         </tr>
-                        <tr><td>I001</td><td>Prof. Johnson</td><td>Room 101</td></tr>
-                        <tr><td>I002</td><td>Prof. Williams</td><td>Room 202</td></tr>
-                        <tr><td>I003</td><td>Prof. Davis</td><td>Room 303</td></tr>
+                        <tr><td>I001</td><td>Mark</td><td>Johnson</td><td>Room 101</td></tr>
+                        <tr><td>I002</td><td>Sarah</td><td>Williams</td><td>Room 202</td></tr>
+                        <tr><td>I003</td><td>Ian</td><td>Davis</td><td>Room 303</td></tr>
                     </table>
                 </div>
             </div>
@@ -274,44 +275,45 @@
             console.log("Fixing Atomicity...");
         
             let tablesBefore = {
-                "Students": ["StudentID", "StudentName", "DateOfBirth", "Age"]
+                "Students": ["StudentID", "StudentName", "DateOfBirth", "Age", "CourseID_1", "CourseName_1", "Instructor_1", "Grade_1", "CourseID_2","CourseName_2", "Instructor_2", "Grade_2"]
             };
         
             let tablesAfter = {
-                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth"]
+                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth", "Age", "CourseID_1", "CourseName_1", "InstructorFirstName", "InstructorLastName", "Grade_1", "CourseID_2","CourseName_2", "InstructorFirstName", "InstructorLastName", "Grade_2"]
             };
         
             let sampleDataBefore = {
                 "Students": [
-                    ["101", "<span class='error-text'>Alice Smith</span>", "2002-03-15", "<span class='error-text'>21</span>"],
-                    ["102", "<span class='error-text'>Bob Jones</span>", "2001-08-20", "<span class='error-text'>22</span>"]
+                    ["101", "<span class='error-text'>Alice Smith</span>", "2002-03-15", "21", "CS101", "Intro To Programming", "<span class='error-text'>Mark Johnson</span>", "A", "Math201", "Calculus I", "<span class='error-text'>Sarah Williams</span>", "B"],
+                    ["102", "<span class='error-text'>Bob Jones</span>", "2001-08-20", "22", "Hist101", "World History", "<span class='error-text'>Ian Davies</span>", "C", "Eng101", "English Comp", "<span class='error-text'>Danny Milner</span>", "A" ]
                 ]
             };
         
             let sampleDataAfter = {
                 "Students": [
-                    ["101", "<span class='fix-text'>Alice</span>", "<span class='fix-text'>Smith</span>", "2002-03-15"],
-                    ["102", "<span class='fix-text'>Bob</span>", "<span class='fix-text'>Jones</span>", "2001-08-20"]
+                    ["101", "<span class='fix-text'>Alice</span>", "<span class='fix-text'>Smith</span>", "2002-03-15", "21", "CS101", "Intro to Programming",  "<span class='fix-text'>Mark</span>", "<span class='fix-text'>Johnson</span>", "A", "Math201", "Calculus I", "<span class='fix-text'>Sarah</span>", "<span class='fix-text'>Williams</span>", "B"],
+                    ["102", "<span class='fix-text'>Bob</span>", "<span class='fix-text'>Jones</span>", "2001-08-20", "22", "Hist101", "World History", "<span class='fix-text'>Ian</span>", "<span class='fix-text'>Davies<span>", "C", "Eng101", "English Comp", "<span class='fix-text'>Danny</span>", "<span class='fix-text'>Milner</span>", "A"]
                 ]
             };
         
             let outputHTML = `
                 <div class="feedback-box error-feedback">
-                    ❌ <strong>Problem:</strong> <span class='error-text'>Student Name</span> is stored as a **full name**, and <span class='error-text'>Age</span> is stored but can be **calculated** from Date of Birth.
+                    ❌ <strong>Problem:</strong> <span class='error-text'>Student Name</span> is stored as a **full name**
                 </div>
         
                 <h3 class="before-after-label">Before Fix:</h3>
                 <div class="table-wrapper"><div class="table-container">`;
         
             Object.keys(tablesBefore).forEach(table => {
-                let headerClass = "table-header-1nf-step1";  
+                let headerClass = "table-header-1nf-step1";
         
                 outputHTML += `<h3 class="table-title">${table} Table</h3>
                 <table border="1">
                 <tr class="${headerClass}">`;
         
                 tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
+                    let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                    outputHTML += `<th>${attr}${pkIcon}</th>`;
                 });
         
                 outputHTML += `</tr>`;
@@ -330,21 +332,22 @@
             outputHTML += `</div></div>
                 
                 <div class="feedback-box fix-feedback">
-                    ✅ <strong>Fix:</strong> We split <span class='fix-text'>Student Name</span> into <span class='fix-text'>First Name</span> and <span class='fix-text'>Last Name</span>, and removed <span class='fix-text'>Age</span>.
+                    ✅ <strong>Fix:</strong> We split <span class='fix-text'>Student Name</span> and <span class='fix-text'>InstructorName</span> into <span class='fix-text'>First Name</span> and <span class='fix-text'>Last Name</span>
                 </div>
         
                 <h3 class="before-after-label">After Fix:</h3>
                 <div class="table-wrapper"><div class="table-container">`;
         
             Object.keys(tablesAfter).forEach(table => {
-                let headerClass = "table-header-1nf-step1";  
+                let headerClass = "table-header-1nf-step1";
         
                 outputHTML += `<h3 class="table-title">${table} Table</h3>
                 <table border="1">
                 <tr class="${headerClass}">`;
         
                 tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
+                    let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                    outputHTML += `<th>${attr}${pkIcon}</th>`;
                 });
         
                 outputHTML += `</tr>`;
@@ -363,33 +366,35 @@
             outputHTML += `</div></div>`;
             document.getElementById("after-university-atomicity").innerHTML = outputHTML;
         }
+        
+
         function fixUniversityRepeatingGroups() {
             console.log("Fixing Repeating Groups...");
         
             let tablesBefore = {
-                "Enrollment": ["StudentID", "CourseID_1", "CourseName_1", "Instructor_1", "Grade_1", 
+                "Enrollment": [ "StudentID ", "CourseID_1", "CourseName_1", "Instructor_1", "Grade_1", 
                                "CourseID_2", "CourseName_2", "Instructor_2", "Grade_2"]
             };
         
             let tablesAfter = {
-                "Enrollment": ["StudentID", "CourseID", "CourseName", "Instructor", "Grade"]
+                "Enrollment": ["EnrollementID (PK)","StudentID (FK)", "CourseID (FK)", "CourseName", "Instructor", "Grade"]
             };
         
             let sampleDataBefore = {
                 "Enrollment": [
-                    ["101", "<span class='error-text'>CS101</span>", "Intro to Programming", "Prof. Johnson", "A", 
-                           "<span class='error-text'>MATH201</span>", "Calculus I", "Prof. Williams", "B"],
-                    ["102", "<span class='error-text'>HIST101</span>", "World History", "Prof. Davis", "C",
-                           "<span class='error-text'>ENG101</span>", "English Comp", "Prof. Miller", "A"]
+                    [ "101", "<span class='error-text'>CS101</span>", "Intro to Programming", "Mark Johnson", "A", 
+                           "<span class='error-text'>MATH201</span>", "Calculus I","Sarah Williams", "B"],
+                    ["102", "<span class='error-text'>HIST101</span>", "World History", "Ian Davis", "C",
+                           "<span class='error-text'>ENG101</span>", "English Comp", "Danny Miller", "A"]
                 ]
             };
         
             let sampleDataAfter = {
                 "Enrollment": [
-                    ["101", "<span class='fix-text'>CS101</span>", "Intro to Programming", "Prof. Johnson", "A"],
-                    ["101", "<span class='fix-text'>MATH201</span>", "Calculus I", "Prof. Williams", "B"],
-                    ["102", "<span class='fix-text'>HIST101</span>", "World History", "Prof. Davis", "C"],
-                    ["102", "<span class='fix-text'>ENG101</span>", "English Comp", "Prof. Miller", "A"]
+                    ["E001","101", "<span class='fix-text'>CS101</span>", "Intro to Programming", "Mark Johnson", "A"],
+                    [ "E002","101", "<span class='fix-text'>MATH201</span>", "Calculus I", "Sarah Williams", "B"],
+                    [ "E003","102", "<span class='fix-text'>HIST101</span>", "World History", "Ian  Davis", "C"],
+                    ["E004","102", "<span class='fix-text'>ENG101</span>", "English Comp", "Danny Miller", "A"]
                 ]
             };
         
@@ -441,9 +446,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -467,11 +474,11 @@
             console.log("Fixing Derived Attributes...");
         
             let tablesBefore = {
-                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth", "Age"]
+                "Students": ["StudentID (PK)", "FirstName", "LastName", "DateOfBirth", "Age"]
             };
         
             let tablesAfter = {
-                "Students": ["StudentID", "FirstName", "LastName", "DateOfBirth"]
+                "Students": ["StudentID (PK)", "FirstName", "LastName", "DateOfBirth"]
             };
         
             let sampleDataBefore = {
@@ -502,9 +509,12 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+            
         
                 outputHTML += `</tr>`;
         
@@ -536,9 +546,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -568,29 +580,29 @@
             console.log("Fixing Partial Dependencies...");
         
             let tablesBefore = {
-                "Enrollment": ["StudentID", "CourseID", "CourseName", "Instructor", "Grade"]
+                "Enrollment": [ "StudentID (FK) ", "CourseID (FK)", "CourseName", "InstructorFirstName", "InstructorLastName", "Grade"]
             };
         
             let tablesAfter = {
-                "Enrollment": ["StudentID", "CourseID", "Grade"],
-                "Courses": ["CourseID", "CourseName", "Instructor"]
+                "Enrollment": ["EnrollementID (PK)" ,"StudentID (FK)", "CourseID (FK)", "Grade"],
+                "Courses": ["CourseID (PK)", "CourseName", "InstructorFirstName", "InstructorLastName"]
             };
         
             let sampleDataBefore = {
                 "Enrollment": [
-                    ["101", "CS101", "Intro to Programming", "<span class='error-text'>Prof. Johnson</span>", "A"],
-                    ["102", "MATH201", "Calculus I", "<span class='error-text'>Prof. Williams</span>", "B"]
+                    ["101", "CS101", "Intro to Programming", "<span class='error-text'>Mark</span>","<span class='error-text'>Johnson</span>", "A"],
+                    ["102", "MATH201", "Calculus I", "<span class='error-text'>Sarah</span>","<span class='error-text'>Williams</span>", "B"]
                 ]
             };
         
             let sampleDataAfter = {
                 "Enrollment": [
-                    ["101", "CS101", "A"],
-                    ["102", "MATH201", "B"]
+                    ["E101","101", "CS101", "A"],
+                    ["E102","102", "MATH201", "B"]
                 ],
                 "Courses": [
-                    ["CS101", "Intro to Programming", "<span class='fix-text'>Prof. Johnson</span>"],
-                    ["MATH201", "Calculus I", "<span class='fix-text'>Prof. Williams</span>"]
+                    ["CS101", "Intro to Programming", "<span class='fix-text'>Mark</span>","<span class='fix-text'>Johnson</span>"],
+                    ["MATH201", "Calculus I", "<span class='fix-text'>Sarah</span>", "<span class='fix-text'> Williams</span>"]
                 ]
             };
         
@@ -610,9 +622,12 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
+            
         
                 outputHTML += `</tr>`;
         
@@ -644,9 +659,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -670,29 +687,29 @@
             console.log("Fixing Transitive Dependencies...");
         
             let tablesBefore = {
-                "CourseInstructors": ["CourseID", "Instructor", "InstructorOffice"]
+                "CourseInstructors": ["CourseID (PK)", "InstructorFirstName","LastName" ,"InstructorOffice"]
             };
         
             let tablesAfter = {
-                "CourseInstructors": ["CourseID", "Instructor"],
-                "Instructors": ["Instructor", "InstructorOffice"]
+                "CourseInstructors": ["CourseID (PK)", "InstructorFirstName", "LastName"],
+                "Instructors": ["Instructor (PK)", "InstructorOffice"]
             };
         
             let sampleDataBefore = {
                 "CourseInstructors": [
-                    ["CS101", "<span class='error-text'>Prof. Johnson</span>", "<span class='error-text'>Room 301</span>"],
-                    ["MATH201", "<span class='error-text'>Prof. Williams</span>", "<span class='error-text'>Room 202</span>"]
+                    ["CS101", "Mark","Johnson", "<span class='error-text'>Room 301</span>"],
+                    ["MATH201","Sarah" ,"Williams", "<span class='error-text'>Room 202</span>"]
                 ]
             };
         
             let sampleDataAfter = {
                 "CourseInstructors": [
-                    ["CS101", "<span class='fix-text'>Prof. Johnson</span>"],
-                    ["MATH201", "<span class='fix-text'>Prof. Williams</span>"]
+                    ["CS101","Mark" ,"Johnson"],
+                    ["MATH201","Sarah" ,"Williams"]
                 ],
                 "Instructors": [
-                    ["<span class='fix-text'>Prof. Johnson</span>", "<span class='fix-text'>Room 301</span>"],
-                    ["<span class='fix-text'>Prof. Williams</span>", "<span class='fix-text'>Room 202</span>"]
+                    ["I001", "<span class='fix-text'>Room 301</span>"],
+                    ["I002", "<span class='fix-text'>Room 202</span>"]
                 ]
             };
         
@@ -712,9 +729,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesBefore[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesBefore[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
@@ -746,9 +765,11 @@
                 <table border="1">
                 <tr class="${headerClass}">`;
         
-                tablesAfter[table].forEach(attr => {
-                    outputHTML += `<th>${attr}</th>`;
-                });
+                    tablesAfter[table].forEach(attr => {
+                        let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
+                        let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
+                        outputHTML += `<th>${attr}${pkIcon}${fkIcon}</th>`;
+                    });
         
                 outputHTML += `</tr>`;
         
