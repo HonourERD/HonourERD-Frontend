@@ -473,7 +473,7 @@
       nextButton.disabled = true;
     }
 
-   submitButton.addEventListener("click", () => {
+  submitButton.addEventListener("click", () => {
   if (selectedTableIndex === -1) {
     alert("Please select an answer before submitting.");
     return;
@@ -573,24 +573,39 @@
 
     function submitAnswersToFlask() {
       const participantID = localStorage.getItem("userID");
+    
       if (!participantID) {
-        alert("Missing user ID. Please log in again.");
+        console.error("❌ ERROR: No participant ID found in localStorage!");
+        alert("Error: No user ID found. Please log in.");
         return;
       }
-
+    
+      const payload = {
+        user_identifier: participantID,
+        answers: userAnswers
+      };
+    
+      console.log("📤 Sending score to Flask:", payload);
+    
       fetch("https://honourerd-backend.onrender.com/submit-score", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_identifier: participantID,
-          answers: userAnswers
-        })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       })
-        .then(res => res.json())
-        .then(data => console.log("✅ Score submitted:", data))
-        .catch(err => console.error("❌ Error submitting score:", err));
+        .then(response => response.json())
+        .then(data => {
+          console.log("📥 Response from Flask:", data);
+          if (!data.success) {
+            console.error("❌ Flask error:", data.message);
+          }
+        })
+        .catch(error => {
+          console.error("❌ Network error while submitting score:", error);
+        });
     }
-
+    
     window.onload = displayQuestion;
   </script>
 </body>
