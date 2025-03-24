@@ -123,6 +123,7 @@
 
     <div id="quiz-container">
         <div id="question" class="question"></div>
+        <div id="example-table"></div>
         <div id="tables-container"></div>
         <button id="submit-button">Submit</button>
         <div id="feedback" class="feedback"></div>
@@ -338,24 +339,36 @@
         questionDiv.innerHTML = `<h2>Question ${currentQuestionNumber} of ${totalQuestions}: ${questionData.question}</h2>`;
     
         tablesContainer.innerHTML = "";
+        document.getElementById("example-table").innerHTML = ""; // Clear it
         selectedTableIndex = -1;
     
+        // ✅ Check if this question has an exampleTable and render it
+        if (questionData.exampleTable) {
+            let html = `
+                <div class="question-table-wrapper">
+                    <table class="question-table" border="1">
+                        <tr>${questionData.exampleTable.headers.map(h => `<th>${h}</th>`).join('')}</tr>
+                        ${questionData.exampleTable.rows.map(row =>
+                            `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
+                        ).join('')}
+                    </table>
+                </div>
+            `;
+            document.getElementById("example-table").innerHTML = html;
+        }
+    
+        // ✅ Then render answer options (text or table)
         questionData.tables.forEach((table, index) => {
             const tableDiv = document.createElement("div");
             tableDiv.classList.add("table-container");
             tableDiv.id = `table-${index}`;
-        
-            // 🛠 Check if the table has headers and rows
-            if (table.table && table.table.headers && table.table.rows) {
+    
+            if (table.table && table.table.headers) {
                 let htmlTable = `<table border="1"><tr>`;
-                
-                // ✅ Generate Table Headers
                 table.table.headers.forEach(header => {
                     htmlTable += `<th>${header}</th>`;
                 });
                 htmlTable += `</tr>`;
-                
-                // ✅ Generate Table Rows
                 table.table.rows.forEach(row => {
                     htmlTable += `<tr>`;
                     row.forEach(cell => {
@@ -364,29 +377,25 @@
                     htmlTable += `</tr>`;
                 });
                 htmlTable += `</table>`;
-        
                 tableDiv.innerHTML = htmlTable;
-            } 
-            
-            // 🛠 If it's a text-based question (e.g., multiple-choice), show text instead
-            else if (table.text) {
+            } else if (table.text) {
                 tableDiv.innerHTML = `<p>${table.text}</p>`;
             }
-        
-            tablesContainer.appendChild(tableDiv);
-        
+    
             tableDiv.addEventListener("click", () => {
                 document.querySelectorAll('.table-container').forEach(el => el.classList.remove('selected'));
                 tableDiv.classList.add("selected");
                 selectedTableIndex = index;
             });
+    
+            tablesContainer.appendChild(tableDiv);
         });
-        
     
         feedbackDiv.textContent = "";
         submitButton.disabled = false;
         nextButton.disabled = true;
     }
+    
     
 
         displayQuestion();

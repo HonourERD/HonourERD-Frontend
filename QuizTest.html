@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="./Images/favicon-16x16.png" />
+  <title>HonourERD - Step-by-Step Normalisation</title>
+  <link rel="stylesheet" href="./test.css" />
+  <style>
+    /* styles exactly as in your original post... unchanged */
+    body {
+      font-family: sans-serif;
+    }
+    .question-table-wrapper {
+      text-align: center;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    .question-table {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .test-table {
+        width: 80%;
+        margin: 0 auto 20px;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        text-align: left;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .test-table th,
+    .test-table td {
+        border: 1px solid #ccc;
+        padding: 12px 16px;
+    }
+    
+    .test-table th {
+        background-color: #f9f9f9;
+    }
+    
+    .table-container {
+      display: inline-block;
+      border: 2px solid #676565;
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      width: 80%;
+      max-width: 600px;
+    }
+    .table-container table {
+      width: 100%;
+    }
+    .table-container table th {
+      background-color: #d4edda;
+      color: black;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid black;
+      text-align: center;
+    }
+    .table-container table tr td {
+      border: 1px solid black;
+    }
+    .table-container:hover {
+      border-color: #007bff;
+    }
+    .selected {
+      border-color: blue !important;
+      box-shadow: 0px 0px 10px rgba(0, 0, 255, 0.4);
+      background-color: rgba(0, 0, 255, 0.2);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .selected table {
+      background-color: white !important;
+      color: black !important;
+      border: 2px solid #676565;
+    }
+    .selected td, .selected th {
+      border-color: #676565 !important;
+    }
+    .feedback {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .feedback.correct {
+      background-color: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+      display: inline-block;
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    .feedback.incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+      display: inline-block;
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    .survey-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #0084ff;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .survey-link:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>HonourERD</h1>
+  <p>Test your knowledge on the process of normalisation</p>
+  <h1>Database Quiz</h1>
+
+  <div id="quiz-container">
+    <div id="question" class="question"></div>
+    <div id="example-table"></div>
+    <div id="tables-container"></div>
+    <button id="submit-button">Submit</button>
+    <div id="feedback" class="feedback"></div>
+    <button id="next-button" disabled>Next Question</button>
+  </div>
+
+  <script>
+    const questionDiv = document.getElementById("question");
+    const tablesContainer = document.getElementById("tables-container");
+    const submitButton = document.getElementById("submit-button");
+    const feedbackDiv = document.getElementById("feedback");
+    const nextButton = document.getElementById("next-button");
+
+    let currentQuestionIndex = 0;
+    let userAnswers = {};
+    let selectedTableIndex = -1;
+
+    const questions = [
+    {
+        question: "Which table violates 1NF by including repeating groups (non-atomic fields)?",
+        tables: [
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "DOB", "Medications"],
+              rows: [
+                ["001", "John", "Smith", "1990-03-25", "Aspirin, Ibuprofen"],
+                ["002", "Jane", "Doe", "1985-08-17", "Paracetamol"]
+              ]
+            },
+            correct: true
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "DOB"],
+              rows: [
+                ["001", "John", "Smith", "1990-03-25"],
+                ["002", "Jane", "Doe", "1985-08-17"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "DOB", "PrimaryMedication"],
+              rows: [
+                ["001", "John", "Smith", "1990-03-25", "Aspirin"],
+                ["002", "Jane", "Doe", "1985-08-17", "Paracetamol"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FullName", "DOB", "Medications"],
+              rows: [
+                ["001", "John Smith", "1990-03-25", "Aspirin"],
+                ["002", "Jane Doe", "1985-08-17", "Paracetamol"]
+              ]
+            },
+            correct: false
+          }
+        ],
+        explanation: "The 'Medications' field in the first table contains multiple values in one cell (e.g., 'Aspirin, Ibuprofen'), which violates 1NF by introducing repeating groups. All values should be atomic (one value per cell)."
+      },
+      
+    
+      
+      {
+        question: "Which table violates 2NF by storing data dependent on only part of a composite key?",
+        tables: [
+       
+          {
+            table: {
+              headers: ["EnrollmentID (PK)", "StudentID (FK)", "CourseID (FK)", "Grade"],
+              rows: [
+                ["E001", "101", "CS101", "A"],
+                ["E002", "102", "MATH201", "B"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["StudentID (PK)", "CourseID (PK)", "CourseName", "Grade"],
+              rows: [
+                ["101", "CS101", "Intro to Programming", "A"],
+                ["102", "MATH201", "Calculus", "B"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["StudentID (PK)", "CourseID (PK)", "StudentName", "CourseName", "Grade"],
+              rows: [
+                ["101", "CS101", "Alice", "Intro to Programming", "A"],
+                ["102", "MATH201", "Bob", "Calculus", "B"]
+              ]
+            },
+            correct: true
+          },
+          {
+            table: {
+              headers: ["StudentID (PK)", "CourseID (PK)", "Grade"],
+              rows: [
+                ["101", "CS101", "A"],
+                ["102", "MATH201", "B"]
+              ]
+            },
+            correct: false
+          }
+        ],
+        explanation: "The 'StudentName' and 'CourseName' depend only on part of the composite key — violating 2NF."
+      },
+      
+      {
+        question: "How can this table be changed to comply with 2NF?",
+        exampleTable: {
+          headers: ["StudentID (PK)", "CourseID (PK)", "CourseName", "Instructor"],
+          rows: [
+            ["101", "CS101", "Intro to Programming", "Dr. Smith"],
+            ["101", "MATH201", "Calculus I", "Prof. Williams"],
+            ["102", "CS101", "Intro to Programming", "Dr. Smith"]
+          ]
+        },
+        tables: [
+         
+          { text: "Remove StudentID to reduce redundancy.", correct: false },
+          { text: "Split the table so CourseName and Instructor go into a new Courses table.", correct: true },
+          { text: "Merge all columns into a single column to reduce size.", correct: false },
+          { text: "Add more foreign keys to the table.", correct: false }
+        ],
+        explanation: "To comply with 2NF, we must eliminate partial dependencies..."
+      },
+
+      {
+        question: "Which table violates 3NF by storing a transitive dependency?",
+        tables: [
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "InsurancePlan", "CoverageType"],
+              rows: [
+                ["001", "John", "Smith", "Plan A", "Full"],
+                ["002", "Jane", "Doe", "Plan B", "Partial"]
+              ]
+            },
+            correct: true
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "InsurancePlanID (FK)"],
+              rows: [
+                ["001", "John", "Smith", "P01"],
+                ["002", "Jane", "Doe", "P02"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FirstName", "LastName", "PlanID (FK)", "CoverageType"],
+              rows: [
+                ["001", "John", "Smith", "P01", "Full"],
+                ["002", "Jane", "Doe", "P02", "Partial"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["PatientID (PK)", "FullName", "InsurancePlanID (FK)"],
+              rows: [
+                ["001", "John Smith", "P01"],
+                ["002", "Jane Doe", "P02"]
+              ]
+            },
+            correct: false
+          }
+        ],
+        explanation: "'CoverageType' depends on 'InsurancePlan', not on the primary key — this is a transitive dependency and violates 3NF."
+      },
+      
+      {
+        question: "Which of the following describes a transitive dependency?",
+        tables: [
+          { text: "CourseID → CourseName", correct: false },
+          { text: "StudentID → DepartmentID → DepartmentName", correct: true },
+          { text: "DoctorID → Specialty", correct: false },
+          { text: "PatientID → AppointmentDate", correct: false }
+        ],
+        explanation: "'StudentID → DepartmentID → DepartmentName' is transitive because 'DepartmentName' is not directly dependent on 'StudentID'."
+      },
+      {
+        question: "Which of the following tables is in 3NF?",
+        tables: [
+          {
+            table: {
+              headers: ["DoctorID (PK)", "FirstName", "LastName", "SpecialtyID (FK)"],
+              rows: [
+                ["D001", "James", "Adams", "SP01"],
+                ["D002", "Darren", "Brown", "SP02"]
+              ]
+            },
+            correct: true
+          },
+          {
+            table: {
+              headers: ["DoctorID (PK)", "FirstName", "LastName", "Specialty"],
+              rows: [
+                ["D001", "James", "Adams", "Cardiology"],
+                ["D002", "Darren", "Brown", "Neurology"]
+              ]
+            },
+            correct: false
+          }
+        ],
+        explanation: "In the first table, transitive dependencies have been removed — Specialty is in a separate table."
+      },
+      {
+        question: "Which table violates 3NF by storing derived data?",
+        tables: [
+        
+          {
+            table: {
+              headers: ["InvoiceID (PK)", "UnitPrice", "Quantity"],
+              rows: [
+                ["INV001", "10", "2"],
+                ["INV002", "5", "3"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["InvoiceID (PK)", "CustomerID (FK)", "Date"],
+              rows: [
+                ["INV001", "C001", "2023-10-10"],
+                ["INV002", "C002", "2023-10-11"]
+              ]
+            },
+            correct: false
+          },
+          {
+            table: {
+              headers: ["InvoiceID (PK)", "UnitPrice", "Quantity", "Total"],
+              rows: [
+                ["INV001", "10", "2", "20"],
+                ["INV002", "5", "3", "15"]
+              ]
+            },
+            correct: true
+          },
+          {
+            table: {
+              headers: ["InvoiceID (PK)", "ProductID (FK)", "Quantity"],
+              rows: [
+                ["INV001", "P001", "2"],
+                ["INV002", "P002", "3"]
+              ]
+            },
+            correct: false
+          }
+        ],
+        explanation: "‘Total’ is a derived value (UnitPrice × Quantity). Storing it violates 3NF because it depends on non-key attributes."
+      },
+      {
+        question: "Which of the following best describes a functional dependency?",
+        tables: [
+          
+          { text: "If B determines A, then A and B are interchangeable.", correct: false },
+          { text: "Functional dependencies only occur in 1NF.", correct: false },
+          { text: "A functional dependency always means the field is a key.", correct: false },
+          { text: "If A determines B, knowing A tells you exactly what B is.", correct: true }
+        ],
+        explanation: "A functional dependency means the value of one attribute (or set of attributes) determines another. Knowing A allows us to know B."
+      },
+      
+      
+    ];
+
+    function displayQuestion() {
+      const questionData = questions[currentQuestionIndex];
+      const totalQuestions = questions.length;
+      const currentQuestionNumber = currentQuestionIndex + 1;
+
+      questionDiv.innerHTML = `<h2>Question ${currentQuestionNumber} of ${totalQuestions}: ${questionData.question}</h2>`;
+      tablesContainer.innerHTML = "";
+      document.getElementById("example-table").innerHTML = "";
+      selectedTableIndex = -1;
+
+      if (questionData.exampleTable) {
+        const html = `
+          <div class="table-container">
+            <table>
+              <tr>${questionData.exampleTable.headers.map(h => `<th>${h}</th>`).join("")}</tr>
+              ${questionData.exampleTable.rows.map(row =>
+                `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}
+            </table>
+          </div>`;
+        document.getElementById("example-table").innerHTML = html;
+      }
+      
+
+      questionData.tables.forEach((option, index) => {
+        const tableDiv = document.createElement("div");
+        tableDiv.classList.add("table-container");
+        tableDiv.id = `table-${index}`;
+
+        if (option.table && option.table.headers) {
+          let html = `<table><tr>${option.table.headers.map(h => `<th>${h}</th>`).join("")}</tr>`;
+          option.table.rows.forEach(row => {
+            html += `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`;
+          });
+          html += `</table>`;
+          tableDiv.innerHTML = html;
+        } else if (option.text) {
+          tableDiv.innerHTML = `<p>${option.text}</p>`;
+        }
+
+        tableDiv.addEventListener("click", () => {
+          document.querySelectorAll(".table-container").forEach(el => el.classList.remove("selected"));
+          tableDiv.classList.add("selected");
+          selectedTableIndex = index;
+        });
+
+        tablesContainer.appendChild(tableDiv);
+      });
+
+      feedbackDiv.textContent = "";
+      submitButton.disabled = false;
+      nextButton.disabled = true;
+    }
+
+   submitButton.addEventListener("click", () => {
+  if (selectedTableIndex === -1) {
+    alert("Please select an answer before submitting.");
+    return;
+  }
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const selected = currentQuestion.tables[selectedTableIndex];
+  const isCorrect = selected.correct;
+
+  userAnswers[currentQuestionIndex] = isCorrect ? 1 : 0;
+
+  if (isCorrect) {
+    feedbackDiv.innerHTML = "✅ Correct!";
+    feedbackDiv.className = "feedback correct";
+  } else {
+    const correctIndex = currentQuestion.tables.findIndex(t => t.correct);
+    feedbackDiv.innerHTML = `❌ Incorrect!<br><br>`;
+    feedbackDiv.innerHTML += `<strong>The correct answer was Option ${correctIndex + 1}.</strong><br><br>`;
+
+    if (currentQuestion.tables[correctIndex].text) {
+      feedbackDiv.innerHTML += `Correct option: <em>"${currentQuestion.tables[correctIndex].text}"</em><br><br>`;
+    } else if (currentQuestion.tables[correctIndex].table) {
+      // Optional: give a hint if it's a table
+      feedbackDiv.innerHTML += `Correct option is the table with structure:<br>`;
+      feedbackDiv.innerHTML += `<pre>${currentQuestion.tables[correctIndex].table.headers.join(" | ")}</pre>`;
+    }
+  }
+
+  if (currentQuestion.explanation) {
+    feedbackDiv.innerHTML += `<em>${currentQuestion.explanation}</em>`;
+  }
+
+  feedbackDiv.classList.add(isCorrect ? "correct" : "incorrect");
+  feedbackDiv.style.display = "block";
+
+  submitButton.disabled = true;
+  nextButton.disabled = false;
+});
+
+
+    nextButton.addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+        feedbackDiv.style.display = "none";
+    } else {
+        const finalScore = Object.values(userAnswers).reduce((a, b) => a + b, 0);
+        let summaryHtml = `
+          <h2>Quiz Completed!</h2>
+          <p>Your score: <strong>${finalScore} out of ${questions.length}</strong></p>
+          <hr>
+          <h3>Review Your Answers:</h3>
+          <ol>
+        `;
+      
+        questions.forEach((q, i) => {
+          const wasCorrect = userAnswers[i] === 1;
+          const correctOptionIndex = q.tables.findIndex(t => t.correct);
+          const correctOption = q.tables[correctOptionIndex];
+      
+          summaryHtml += `<li>`;
+          summaryHtml += `<strong>Q${i + 1}:</strong> ${q.question}<br>`;
+          summaryHtml += wasCorrect
+            ? `✅ <span style="color: green;">Correct</span>`
+            : `❌ <span style="color: red;">Incorrect</span>`;
+      
+          if (!wasCorrect) {
+            summaryHtml += `<br>✅ Correct answer was: `;
+            if (correctOption.text) {
+              summaryHtml += `<em>"${correctOption.text}"</em>`;
+            } else if (correctOption.table) {
+              summaryHtml += `<pre>${correctOption.table.headers.join(" | ")}</pre>`;
+            }
+          }
+      
+          if (q.explanation) {
+            summaryHtml += `<br><em>${q.explanation}</em>`;
+          }
+      
+          summaryHtml += `</li><br>`;
+        });
+      
+        summaryHtml += `</ol>
+          <a href="https://www.surveymonkey.com/r/BDV9XLL" class="survey-link">📋 Click here to take the survey!</a>`;
+      
+        feedbackDiv.innerHTML = summaryHtml;
+        feedbackDiv.className = "feedback correct";
+        feedbackDiv.style.display = "block";
+      
+        submitButton.disabled = true;
+        nextButton.disabled = true;
+      
+        submitAnswersToFlask(); // keep submitting the score!
+      }
+      
+    });
+
+    function submitAnswersToFlask() {
+      const participantID = localStorage.getItem("userID");
+      if (!participantID) {
+        alert("Missing user ID. Please log in again.");
+        return;
+      }
+
+      fetch("https://honourerd-backend.onrender.com/submit-score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_identifier: participantID,
+          answers: userAnswers
+        })
+      })
+        .then(res => res.json())
+        .then(data => console.log("✅ Score submitted:", data))
+        .catch(err => console.error("❌ Error submitting score:", err));
+    }
+
+    window.onload = displayQuestion;
+  </script>
+</body>
+</html>
