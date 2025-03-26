@@ -1,6 +1,6 @@
-/* ============================================================= */
-/* ✅ GENERAL PAGE STYLING */
-/* ============================================================= */
+
+/* general styling */
+
 
 body {
     font-family: Arial, sans-serif;
@@ -15,9 +15,9 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* ============================================================= */
-/* ✅ SCENARIO STYLING (Intro Section) */
-/* ============================================================= */
+
+/* into styling  */
+
 
 .scenario-container {
     background: #faf6d8;
@@ -50,9 +50,9 @@ h1 {
     color: #c0392b;
 }
 
-/* ============================================================= */
-/* ✅ STEP CONTAINERS (For 1NF, 2NF, etc.) */
-/* ============================================================= */
+
+/*step containers */
+
 
 .step-container {
     background-color: #fdf7d9;
@@ -64,9 +64,9 @@ h1 {
     margin: 20px auto;
 }
 
-/* ============================================================= */
-/* ✅ SUBPROCESS BOXES (Steps Inside Each NF) */
-/* ============================================================= */
+
+/* subprocess box */
+
 
 .subprocess-box1 {
     background-color: white;
@@ -83,9 +83,9 @@ h1 {
     margin-top: 0;
 }
 
-/* ============================================================= */
-/* ✅ FEEDBACK BOXES (For Fix Messages) */
-/* ============================================================= */
+
+/* feedback boxes */
+
 
 #atomicity-feedback,
 #repeating-groups-feedback,
@@ -100,53 +100,53 @@ h1 {
     max-width: 800px;
 }
 
-/* ============================================================= */
-/* ✅ TABLE STYLING (Fixes Layout Issues) */
-/* ============================================================= */
 
-/* ✅ Ensures Tables Fit Properly */
+/* table styling */
+
+
+
 .table-wrapper {
     width: 100%;
     max-width: 100%;
-    overflow-x: auto; /* ✅ Allows scrolling for wide tables */
+    overflow-x: auto; /*scrolling for wide tables */
     margin: 10px auto;
     display: flex;
     justify-content: center;
 }
 
-/* ✅ Fix Table Containers */
+
 .table-container {
-    display: block; /* ✅ Stop flexbox from messing things up */
+    display: block; /* this Stops flexbox from messing things up */
     width: 100%;
     max-width: 100%;
     padding: 10px;
     box-sizing: border-box;
 }
 
-/* ✅ Fix Table Layout (Columns Stay Even) */
+
 .table-container table {
     border-collapse: collapse;
-    width: 100%; /* ✅ Expands table properly */
-    table-layout: fixed; /* ✅ Ensures equal column widths */
+    width: 100%; 
+    table-layout: fixed; 
     word-wrap: break-word;
 }
 
-/* ✅ Fix Headers & Cells */
+
 .table-container th,
 .table-container td {
     padding: 12px 15px;
     border: 1px solid #ccc;
     text-align: center;
-    white-space: nowrap; /* ✅ Stops text from breaking */
+    white-space: nowrap; 
     overflow: hidden;
 }
 
-/* ✅ Allow Text Wrapping ONLY for Table Body */
+
 .table-container td {
-    white-space: normal; /* ✅ Fixes text breaking */
+    white-space: normal; 
 }
 
-/* ✅ Ensure Tables Scroll on Mobile */
+
 @media (max-width: 768px) {
     .table-wrapper {
         overflow-x: auto;
@@ -157,14 +157,14 @@ h1 {
 }
 
 
-/* ============================================================= */
-/* ✅ HIGHLIGHTING FIXES */
-/* ============================================================= */
-.table-header-1nf-step1 { background-color: #DAD89B; } /* Light Yellow */
-.table-header-1nf-step2 { background-color: #DEb475; } /* Darker Yellow */
-.table-header-2nf-step1 { background-color: #CD8B6F; } /* Light Blue */
-.table-header-2nf-step2 { background-color: #876575; } /* Darker Blue */
-.table-header-3nf-step1 { background-color: #60566e; } /* Light Purple */
+
+/* table headers colouring */
+
+.table-header-1nf-step1 { background-color: #DAD89B; } 
+.table-header-1nf-step2 { background-color: #DEb475; } 
+.table-header-2nf-step1 { background-color: #CD8B6F; } 
+.table-header-2nf-step2 { background-color: #876575; } 
+.table-header-3nf-step1 { background-color: #60566e; } 
 
 .highlight-cell {
     background-color: yellow;
@@ -178,33 +178,33 @@ h1 {
 }
 
 .change-highlight {
-    border: 3px solid red !important; /* 🔴 Full Red Border */
+    border: 3px solid red;
     font-weight: bold;
     padding: 5px;
     text-align: center;
-    border-radius: 4px; /* ✅ Rounded for smooth look */
+    border-radius: 4px;
 }
 .atomicity-fix {
-    border: 3px solid orange !important; /* 🟠 Fix for Splitting Names */
+    border: 3px solid orange;
 }
 
 .repeating-group-fix {
-    border: 3px solid red !important; /* 🔴 Repeating Groups Fix */
+    border: 3px solid red;
 }
 
 .partial-dependency-fix {
-    border: 3px solid blue !important; /* 🔵 Partial Dependency Fix */
+    border: 3px solid blue;
 }
 
 .transitive-dependency-fix {
-    border: 3px solid purple !important; /* 🟣 Transitive Dependency Fix */
+    border: 3px solid purple;
 }
 
 .dob-highlight {
-    border: 3px solid green !important; /* 🟢 DOB Highlight */
+    border: 3px solid green;
 }
 
-/* ✅ General Fix Description Styling */
+
 .problem-text {
     color: red;
     font-weight: bold;
@@ -223,7 +223,7 @@ h1 {
     display: inline-block;
 }
 
-/* ✅ Table Containers */
+
 .table-wrapper {
     width: 100%;
     display: flex;
@@ -241,7 +241,7 @@ h1 {
     border: 1px solid #ddd;
 }
 
-/* ✅ Fix Table Header */
+
 .table-container table {
     width: 100%;
     table-layout: auto;
@@ -256,7 +256,7 @@ h1 {
     border: 1px solid #ccc;
 }
 
-/* ✅ Table Cell Fix */
+
 .table-container td {
     padding: 8px 12px;
     text-align: center;
@@ -265,29 +265,29 @@ h1 {
     white-space: normal;
 }
 
-/* ✅ Before Fix Styling */
+
 .before-fix th,
 .before-fix td {
-    background: #ffebee !important;
+    background: #ffebee;
 }
 
-/* ✅ After Fix Styling */
+
 .after-fix th,
 .after-fix td {
-    background: #e8f5e9 !important;
+    background: #e8f5e9;
 }
 
-/* ✅ Highlight Cells (For Mistakes) */
+
 .full-cell-border {
-    border: 2px solid red !important;
+    border: 2px solid red;
 }
 
-/* ✅ Fix Borders (For Fixed Items) */
+
 .fix-border {
-    border: 2px solid green !important;
+    border: 2px solid green;
 }
 
-/* ✅ Responsive Fix */
+
 @media (max-width: 768px) {
     .table-container {
         width: 100%;
@@ -295,7 +295,7 @@ h1 {
 }
 
 
-/* ✅ Reduce Text Size in Small Screens */
+
 @media (max-width: 768px) {
     .table-container th,
     .table-container td {
@@ -304,14 +304,14 @@ h1 {
     }
 }
 
-/* ✅ Fix Highlighting Issues */
+
 .error-text {
     color: red;
     font-weight: bold;
     background: #ffebee;
     padding: 4px 8px;
     border-radius: 4px;
-    display: inline-block; /* ✅ Prevents text from crushing */
+    display: inline-block; 
 }
 
 .fix-text {
@@ -323,7 +323,7 @@ h1 {
     display: inline-block;
 }
 
-/* ✅ Header Colors for Different Stages */
+
 .error-header {
     background: #ffcccc !important;
     font-weight: bold;
@@ -331,23 +331,23 @@ h1 {
 }
 
 .fix-header {
-    background: #ccffcc !important;
+    background: #ccffcc;
     font-weight: bold;
     text-align: center;
 }
 
-/* ✅ Add Borders to Highlight Issues */
+
 .full-cell-border {
-    border: 2px solid red !important;
+    border: 2px solid red;
 }
 
 
 
 
 
-/* ============================================================= */
-/* ✅ BUTTON STYLING */
-/* ============================================================= */
+
+/*buttons*/
+
 
 button {
     background: #007bff;
@@ -372,9 +372,9 @@ button:hover {
     background: #218838;
 }
 
-/* ============================================================= */
-/* ✅ UNF TABLE STYLING (Fix Layout Issues) */
-/* ============================================================= */
+
+/* unf */
+
 
 #unf-table-container {
     overflow-x: auto;
@@ -399,7 +399,7 @@ button:hover {
     white-space: nowrap;
 }
 
-/* Ensure wide columns fit */
+
 #unf-table th:nth-child(8),
 #unf-table th:nth-child(9),
 #unf-table th:nth-child(11),
@@ -409,7 +409,7 @@ button:hover {
     white-space: normal;
 }
 
-/* Center align IDs, Dates, and Times */
+
 #unf-table td:nth-child(1),
 #unf-table td:nth-child(7),
 #unf-table td:nth-child(10),
@@ -418,9 +418,8 @@ button:hover {
     text-align: center;
 }
 
-/* ============================================================= */
-/* ✅ MOBILE FIXES */
-/* ============================================================= */
+
+
 
 @media (max-width: 768px) {
     .table-wrapper {
@@ -439,7 +438,7 @@ button:hover {
 
 
 
-/* QUIZ STYLING */
+/* quiz styling */
 
 
 
@@ -456,7 +455,7 @@ button:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/*  text layout  */
+
 #quiz-container {
     text-align: center;
     margin-top: 30px;

@@ -33,7 +33,7 @@
             width: 100%;
         }
         .table-container table th {
-            background-color: #d4edda; /* Default blue header */
+            background-color: #d4edda; 
             color: black;
             font-weight: bold;
             padding: 10px;
@@ -52,19 +52,19 @@
         .selected {
             border-color: blue !important;
             box-shadow: 0px 0px 10px rgba(0, 0, 255, 0.4);
-            background-color: rgba(0, 0, 255, 0.2); /* Light blue background for container */
-            padding: 10px; /* Ensures padding stays even */
-            border-radius: 5px; /* Keeps smooth edges */
+            background-color: rgba(0, 0, 255, 0.2); 
+            padding: 10px; 
+            border-radius: 5px; 
         }
         
         .selected table {
-            background-color: white !important; /* Keeps table background normal */
-            color: black !important;
-            border: 2px solid #676565; /* Keeps the table’s border intact */
+            background-color: white; 
+            color: black;
+            border: 2px solid #676565; 
         }
         
         .selected td, .selected th {
-            border-color: #676565 !important; /* Keeps the table cell borders normal */
+            border-color: #676565; 
         }
 
         .feedback {
@@ -139,8 +139,8 @@
 
         let currentQuestionIndex = 0;
         let score = 0;
-        let userAnswers = {};  // ✅ Store answers globally for the entire quiz
-        let participantID = localStorage.getItem("userID"); // Retrieve participant ID
+        let userAnswers = {};  
+        let participantID = localStorage.getItem("userID"); 
 
 
         const questions = [
@@ -339,10 +339,10 @@
         questionDiv.innerHTML = `<h2>Question ${currentQuestionNumber} of ${totalQuestions}: ${questionData.question}</h2>`;
     
         tablesContainer.innerHTML = "";
-        document.getElementById("example-table").innerHTML = ""; // Clear it
+        document.getElementById("example-table").innerHTML = ""; 
         selectedTableIndex = -1;
     
-        // ✅ Check if this question has an exampleTable and render it
+  
         if (questionData.exampleTable) {
             let html = `
                 <div class="question-table-wrapper">
@@ -357,7 +357,7 @@
             document.getElementById("example-table").innerHTML = html;
         }
     
-        // ✅ Then render answer options (text or table)
+    
         questionData.tables.forEach((table, index) => {
             const tableDiv = document.createElement("div");
             tableDiv.classList.add("table-container");
@@ -413,8 +413,8 @@
             userAnswers[currentQuestionIndex + 1] = isCorrect ? 1 : 0;
         
      
-            console.log(`📌 Question ${currentQuestionIndex + 1} answered:`, isCorrect ? "✅ Correct" : "❌ Incorrect");
-            console.log("📊 Current Answers:", userAnswers);
+            console.log(` Question ${currentQuestionIndex + 1} answered:`, isCorrect ? "yes" : "no");
+            console.log("list Current Answers:", userAnswers);
         
      
             if (isCorrect) {
@@ -443,7 +443,7 @@
             console.log(`🔹 Current index BEFORE update: ${currentQuestionIndex}`);
             console.log(`🔹 Total Questions: ${questions.length}`);
         
-            currentQuestionIndex++; // Move to the next question
+            currentQuestionIndex++; 
         
             console.log(`🔹 Current index AFTER update: ${currentQuestionIndex}`);
         
@@ -455,9 +455,9 @@
                 feedbackDiv.style.opacity = "0";
                 feedbackDiv.classList.remove("correct", "incorrect");
             } else {
-                console.log("🎉 Quiz completed!");
+                console.log("quiz completed!");
         
-                // ✅ Calculate the final score (sum of correct answers)
+                
                 let finalScore = Object.values(userAnswers).reduce((acc, val) => acc + val, 0);
         
                 feedbackDiv.innerHTML = `
@@ -474,11 +474,10 @@
                 nextButton.disabled = true;
                 submitButton.disabled = true;
         
-                // ✅ Send answers to Flask
+             
                 submitAnswersToFlask();
         
-                // ✅ Debug log to make sure score is right
-                console.log(`🏆 FINAL SCORE: ${finalScore}/${questions.length}`);
+                console.log(`score: ${finalScore}/${questions.length}`);
             }
         });
         
@@ -486,8 +485,8 @@
             let participantID = localStorage.getItem("userID");
         
             if (!participantID) {
-                console.error("❌ ERROR: No participant ID found in localStorage!");
-                alert("Error: No user ID found. Please log in.");
+                console.error("  participant ID found in localStorage!");
+                alert("user ID not found. Please log in.");
                 return;
             }
         
@@ -496,7 +495,7 @@
                 answers: userAnswers  
             };
         
-            console.log("📤 Sending Data to Flask:", payload);
+            console.log("Sending Data to Flask:", payload);
         
             fetch("https://honourerd-backend.onrender.com/submit-score", { 
                 method: "POST",
@@ -505,12 +504,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log("📥 Response from server:", data);
+                console.log(" Response from server:", data);
                 if (!data.success) {
-                    console.error("❌ Flask Error:", data.message);
+                    console.error(" Flask Error:", data.message);
                 }
             })
-            .catch(error => console.error("❌ ERROR submitting score:", error));
+            .catch(error => console.error("failure submitting score:", error));
         }
         
         

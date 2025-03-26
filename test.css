@@ -269,7 +269,7 @@ button:hover {
 }
 
 #final-summary .table-container table {
-    background-color: white !important; /* Force white background */
+    background-color: white;
     border-collapse: collapse;
     width: 100%;
     table-layout: auto;

@@ -7,7 +7,7 @@
   <title>HonourERD - Step-by-Step Normalisation</title>
   <link rel="stylesheet" href="./test.css" />
   <style>
-    /* styles exactly as in your original post... unchanged */
+ 
     body {
       font-family: sans-serif;
     }
@@ -75,19 +75,19 @@
       border-color: #007bff;
     }
     .selected {
-      border-color: blue !important;
+      border-color: blue;
       box-shadow: 0px 0px 10px rgba(0, 0, 255, 0.4);
       background-color: rgba(0, 0, 255, 0.2);
       padding: 10px;
       border-radius: 5px;
     }
     .selected table {
-      background-color: white !important;
-      color: black !important;
+      background-color: white;
+      color: black;
       border: 2px solid #676565;
     }
     .selected td, .selected th {
-      border-color: #676565 !important;
+      border-color: #676565;
     }
     .feedback {
       font-size: 20px;
@@ -496,7 +496,7 @@
     if (currentQuestion.tables[correctIndex].text) {
       feedbackDiv.innerHTML += `Correct option: <em>"${currentQuestion.tables[correctIndex].text}"</em><br><br>`;
     } else if (currentQuestion.tables[correctIndex].table) {
-      // Optional: give a hint if it's a table
+      // left as an option to provide hints but not as yet used
       feedbackDiv.innerHTML += `Correct option is the table with structure:<br>`;
       feedbackDiv.innerHTML += `<pre>${currentQuestion.tables[correctIndex].table.headers.join(" | ")}</pre>`;
     }
@@ -566,7 +566,7 @@
         submitButton.disabled = true;
         nextButton.disabled = true;
       
-        submitAnswersToFlask(); // keep submitting the score!
+        submitAnswersToFlask(); 
       }
       
     });
@@ -575,8 +575,8 @@
       const participantID = localStorage.getItem("userID");
     
       if (!participantID) {
-        console.error("❌ ERROR: No participant ID found in localStorage!");
-        alert("Error: No user ID found. Please log in.");
+        console.error("participant ID found in localStorage!");
+        alert(" No user ID found. Please log in.");
         return;
       }
     
@@ -585,7 +585,7 @@
         answers: userAnswers
       };
     
-      console.log("📤 Sending score to Flask:", payload);
+      console.log("Sending score to Flask:", payload);
     
       fetch("https://honourerd-backend.onrender.com/submit_score", {
         method: "POST",
@@ -596,13 +596,13 @@
       })
         .then(response => response.json())
         .then(data => {
-          console.log("📥 Response from Flask:", data);
+          console.log("Response from Flask:", data);
           if (!data.success) {
-            console.error("❌ Flask error:", data.message);
+            console.error("Flask error:", data.message);
           }
         })
         .catch(error => {
-          console.error("❌ Network error while submitting score:", error);
+          console.error("Network error:", error);
         });
     }
     

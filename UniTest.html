@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <!-- 🎓 Step 1: Fix Atomicity -->
+  
     <div class="step-container">
         <h3>Subprocesses of Achieving 1NF</h3>
 
@@ -111,7 +111,7 @@
 
     <hr>
 
-    <!-- 🎓 Step 2: Remove Derived Attributes -->
+   
     <div class="step-container">
         <h3>Subprocesses of Achieving 2NF</h3>
 
@@ -130,7 +130,7 @@
 
     <hr>
 
-    <!-- 🎓 Step 3: Remove Transitive Dependencies -->
+ 
     <div class="step-container">
         <h3>Subprocesses of Achieving 3NF</h3>
 
@@ -152,7 +152,7 @@
                 The final structure eliminates redundancy, improves efficiency, and ensures data integrity.
             </p>
     
-            <!-- ✅ Students Table -->
+      
             <div class="table-wrapper">
                 <div class="table-container">
                     <h3 class="table-title">Students Table</h3>
@@ -169,7 +169,7 @@
                 </div>
             </div>
     
-            <!-- ✅ Courses Table -->
+          
             <div class="table-wrapper">
                 <div class="table-container">
                     <h3 class="table-title">Courses Table</h3>
@@ -186,7 +186,7 @@
                 </div>
             </div>
     
-            <!-- ✅ Enrollment Table -->
+         
             <div class="table-wrapper">
                 <div class="table-container">
                     <h3 class="table-title">Enrollment Table</h3>
@@ -204,7 +204,7 @@
                 </div>
             </div>
     
-            <!-- ✅ Instructors Table -->
+         
             <div class="table-wrapper">
                 <div class="table-container">
                     <h3 class="table-title">Instructors Table</h3>
@@ -240,15 +240,10 @@
 
 
 <script>
-    // ✅ Initialize Mermaid
-         // ✅ Initialize Mermaid Diagrams
+    
          mermaid.initialize({ startOnLoad: false });
 
-         /* ------------------------------------------------ */
-         /* ✅ Helper Functions (For Highlighting & Rendering) */
-         /* ------------------------------------------------ */
- 
-         // ✅ Reset Mermaid Diagrams
+     
          function resetMermaid(selector) {
              setTimeout(() => {
                  document.querySelectorAll(selector).forEach(el => el.removeAttribute("data-processed"));
@@ -256,7 +251,7 @@
              }, 50);
          }
  
-         // ✅ Highlight Cell Changes
+       
          function highlightChanges(rowIndex, colIndex, highlightClass = "highlight-cell") {
              let table = document.getElementById("unf-table");
              let cell = table.rows[rowIndex]?.cells[colIndex];
@@ -557,7 +552,7 @@
                 sampleDataAfter[table].forEach(row => {
                     outputHTML += `<tr>`;
                     row.forEach((cell, index) => {
-                        // ✅ Highlight DateOfBirth **only in the AFTER table**
+                       
                         if (tablesAfter["Students"][index] === "DateOfBirth") {
                             outputHTML += `<td><span class='fix-text'>${cell}</span></td>`;
                         } else {
@@ -791,7 +786,7 @@
 
         
         
-            /* ✅ Attach Event Listeners */
+         
             document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("btn-fix-university-atomicity").addEventListener("click", fixUniversityAtomicity);
                 document.getElementById("btn-fix-university-repeating-groups").addEventListener("click", fixUniversityRepeatingGroups);

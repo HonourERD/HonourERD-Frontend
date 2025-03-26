@@ -149,7 +149,7 @@
     <div class="step-container">
         <h3>Subprocesses of Achieving 2NF</h3>
 
-        <!-- Step 1: Remove Derived Attributes -->
+       
         <div class="subprocess-box1">
             <h4>Step 1. Remove Derived Attributes</h4>
 
@@ -159,7 +159,7 @@
             <div id="after-derived-attributes" class="mermaid"></div>
         </div>
 
-        <!-- Step 2: Fix Partial Dependencies -->
+      
         <div class="subprocess-box1">
             <h4>Step 2. Remove Partial Dependencies</h4>
 
@@ -174,7 +174,7 @@
     <div class="step-container">
         <h3>Subprocesses of Achieving 3NF</h3>
     
-        <!-- Step 1: Remove Transitive Dependencies -->
+      
         <div class="subprocess-box1">
             <h4>Step 1. Remove Transitive Dependencies</h4>
     
@@ -193,7 +193,7 @@
             The final structure eliminates redundancy, improves efficiency, and ensures data integrity.
         </p>
     
-        <!-- ✅ Patient Table -->
+      
         <div class="table-wrapper">
             <div class="table-container">
                 <h3 class="table-title">Patient Table</h3>
@@ -212,7 +212,7 @@
             </div>
         </div>
     
-        <!-- ✅ Doctor Table -->
+   
         <div class="table-wrapper">
             <div class="table-container">
                 <h3 class="table-title">Doctor Table</h3>
@@ -230,7 +230,7 @@
             </div>
         </div>
     
-        <!-- ✅ Appointment Table -->
+  
         <div class="table-wrapper">
             <div class="table-container">
                 <h3 class="table-title">Appointment Table</h3>
@@ -249,7 +249,7 @@
             </div>
         </div>
     
-        <!-- ✅ Medications Table -->
+    
         <div class="table-wrapper">
             <div class="table-container">
                 <h3 class="table-title">Medications Table</h3>
@@ -265,7 +265,7 @@
             </div>
         </div>
     
-        <!-- ✅ Diagnosis Table -->
+       
         <div class="table-wrapper">
             <div class="table-container">
                 <h3 class="table-title">Diagnosis Table</h3>
@@ -281,7 +281,7 @@
             </div>
         </div>
     
-        <!-- ✅ Insurance Table -->
+       
         
         <div class="table-wrapper">
             <div class="table-container">
@@ -318,11 +318,7 @@
         // ✅ Initialize Mermaid Diagrams
         mermaid.initialize({ startOnLoad: false });
 
-        /* ------------------------------------------------ */
-        /* ✅ Helper Functions (For Highlighting & Rendering) */
-        /* ------------------------------------------------ */
-
-        // ✅ Reset Mermaid Diagrams
+       
         function resetMermaid(selector) {
             setTimeout(() => {
                 document.querySelectorAll(selector).forEach(el => el.removeAttribute("data-processed"));
@@ -330,7 +326,7 @@
             }, 50);
         }
 
-        // ✅ Highlight Cell Changes
+       
         function highlightChanges(rowIndex, colIndex, highlightClass = "highlight-cell") {
             let table = document.getElementById("unf-table");
             let cell = table.rows[rowIndex]?.cells[colIndex];
@@ -535,7 +531,7 @@
                         <table border="1">
                         <tr class="${headerClass}">`;
                     
-                        // ✅ Apply the PK/FK logic correctly to all tables
+                  
                         tablesAfter[table].forEach(attr => {
                             let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
                             let fkIcon = attr.includes("(FK)") ? " <img src='./Images/icons8-key-16.png' alt='FK' class='fk-icon'>" : "";
@@ -597,11 +593,11 @@
                 <div class="table-wrapper"><div class="table-container">`;
         
             Object.keys(tablesBefore).forEach(table => {
-                let headerClass = "table-header-2nf-step1"; // ✅ Correct header highlight for Before Fix
+                let headerClass = "table-header-2nf-step1"; 
         
                 outputHTML += `<h3 class="table-title">${table} Table</h3>
                 <table border="1">
-                <tr class="${headerClass}">`; // ✅ Apply header highlight
+                <tr class="${headerClass}">`; 
         
                     tablesBefore[table].forEach(attr => {
                         let pkIcon = attr.includes("(PK)") ? " <img src='./Images/icons8-key-16 (1).png' alt='PK' class='pk-icon'>" : "";
@@ -699,8 +695,7 @@
                     ["A103", "001", "D001", "2024-06-19", "9.30 AM"]
                 ]
             };
-        
-            // ✅ Before Fix Feedback Box
+       
             let beforeFixHTML = `
                 <div class="feedback-box error-feedback">
                     ✅ <strong>Problem:</strong> The <span class='error-text'>Doctor's Specialty</span> was stored in the <strong>Appointment</strong> table, causing **duplicate data** across multiple records. 
@@ -738,7 +733,7 @@
         
             outputHTML += `</div></div>`;
         
-            // ✅ After Fix Feedback Box
+   
             let afterFixHTML = `
                 <div class="feedback-box fix-feedback">
                     ✅ <strong>Fix:</strong> We moved <span class='fix-text'>Specialty</span> to the <strong>Doctor</strong> table, ensuring it is stored only once per doctor and to ensure that <strong>partial dependancy</strong> rules are maintained. <br> <br>
@@ -903,9 +898,7 @@
         
         
          
-        /* ------------------------------------------------ */
-        /* ✅ Event Listeners */
-        /* ------------------------------------------------ */
+      
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("btn-fix-atomicity").addEventListener("click", fixAtomicity);
             document.getElementById("btn-fix-repeating-groups").addEventListener("click", fixRepeatingGroups);
